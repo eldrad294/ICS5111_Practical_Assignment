@@ -45,8 +45,13 @@ class db():
         try:
             conn = self.__connect()
             #
-            cur = conn.cursor(buffered=True)
+            cur = conn.cursor()
+            #
+            # Executes the sql statement across the database
             cur.execute(sql)
+            #
+            # Converts retrieved cursor into list of tuples
+            cur = cur.fetchall()
             #
             self.__close(conn)
             return cur
