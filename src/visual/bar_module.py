@@ -5,6 +5,7 @@ import src.constants.string_consts as c
 import src.constants.sql_consts as sql_c
 from src.textprocessing.SentimentAnalyzer import SentimentAnalyzer
 from threading import Thread
+from operator import itemgetter
 #
 sentiment_count_results = []
 #
@@ -102,12 +103,12 @@ def photo_labels_vs_count(db_obj):
 def review_sentiment(db_obj):
     """ Displays review sentiment based on positive/negative/neutral reviews """
     #
-    threads = []
+    traces, threads = [], []
     sentiment_text = ['pos', 'neg', 'neu']
     #
     # We initiate n number of jobs ranging from 2004 till 2017
     for i in range(2004, 2017):
-        sql_filter = ' where date like \'' + str(i) + '%\' LIMIT 1000;'
+        sql_filter = ' where date like \'' + str(i) + '%\' LIMIT 100;'
         process = Thread(target=review_sentiment_counter, args=[db_obj,sql_filter, sentiment_text, i])
         process.start()
         threads.append(process)
@@ -117,22 +118,25 @@ def review_sentiment(db_obj):
     for process in threads:
         process.join()
     #
-    sentiment_counts, s1, s2, s3 = [],[],[],[]
-    [(s1.append(row[0]),s2.append(row[1]),s3.append(row[2])) for row in sentiment_count_results]
-    sentiment_counts.append(sum(s1))
-    sentiment_counts.append(sum(s2))
-    sentiment_counts.append(sum(s3))
+    sentiment_counts = sorted(sentiment_count_results, key=itemgetter(3))
+    for i in range(len(sentiment_text)):
+        temp_list = []
+        [(temp_list.append(row[i]))for row in sentiment_counts]
+        trace = go.Bar(
+                x=['2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016'],
+                y=temp_list,
+                name=sentiment_text[i]
+            )
+        print(temp_list)
+        traces.append(trace)
     #
-    data = Data([
-        Bar(
-            x=sentiment_text,
-            y=sentiment_counts
-        )
-    ])
+    data = traces
+    #
     layout = go.Layout(
         title=c.REVIEW_SENTIMENT,
+        barmode='stack',
         xaxis=dict(
-            title='Sentiment Category'
+            title='Time Line'
         ),
         yaxis=dict(
             title='Sentiment Count'
@@ -140,7 +144,7 @@ def review_sentiment(db_obj):
     )
     config = {'scrollZoom': True,
               'linkText': "Visit plot.ly"}
-    fig = go.Figure(data=data, layout=layout)
+    fig = go.Figure(data=data,layout=layout)
     #
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
@@ -170,6 +174,8 @@ def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
             sentiment_counts[2] += 1
         else:
             print("Unhandled value. Terminate @review_sentiment()")
+    #
+    sentiment_counts.append(year)
     #
     # We assign the count values to the original list we passed, in order for the thread to return an output
     sentiment_count_results.append(sentiment_counts)
