@@ -4,7 +4,9 @@ from plotly.graph_objs import *
 import src.constants.string_consts as c
 import src.constants.sql_consts as sql_c
 from src.textprocessing.SentimentAnalyzer import SentimentAnalyzer
-from multiprocessing import Pool
+from threading import Thread
+#
+sentiment_count_results = []
 #
 def display_business_distribution_over_states(db_obj):
     """" Displays a spread of businesses distributed per state """
@@ -29,7 +31,6 @@ def display_business_distribution_over_states(db_obj):
         yaxis=dict(
             title='Business Count'
         )
-
     )
     config = {'scrollZoom': True,
               'linkText': "Visit plot.ly"}
@@ -101,29 +102,26 @@ def photo_labels_vs_count(db_obj):
 def review_sentiment(db_obj):
     """ Displays review sentiment based on positive/negative/neutral reviews """
     #
-    sql = sql_c.sql_REVIEWS
-    df = db_obj.execute_query(sql)
+    threads = []
+    sentiment_text = ['pos', 'neg', 'neu']
     #
-    review_texts = []
-    [(review_texts.append(row[0])) for row in df]
+    # We initiate n number of jobs ranging from 2004 till 2017
+    for i in range(2004, 2017):
+        sql_filter = ' where date like \'' + str(i) + '%\' LIMIT 1000;'
+        process = Thread(target=review_sentiment_counter, args=[db_obj,sql_filter, sentiment_text, i])
+        process.start()
+        threads.append(process)
     #
-    # Perform sentiment analysis and return counts in 3 buckets
-    sa = SentimentAnalyzer()
-    sentiment_text = ['pos','neg','neu']
-    sentiment_counts = [0,0,0] # pos, neg, neu
     #
-    for i, text in enumerate(review_texts):
-        if i % 1000 == 0:
-            print('Performing sentiment analysis... ' + str(i) + " records processed.")
-        sentiment = sa.predict(text)
-        if sentiment == sentiment_text[0]:
-            sentiment_counts[0] += 1
-        elif sentiment == sentiment_text[1]:
-            sentiment_counts[1] += 1
-        elif sentiment == sentiment_text[2]:
-            sentiment_counts[2] += 1
-        else:
-            print("Unhandled value. Terminate @review_sentiment()")
+    # We wait for all threads to finish
+    for process in threads:
+        process.join()
+    #
+    sentiment_counts, s1, s2, s3 = [],[],[],[]
+    [(s1.append(row[0]),s2.append(row[1]),s3.append(row[2])) for row in sentiment_count_results]
+    sentiment_counts.append(sum(s1))
+    sentiment_counts.append(sum(s2))
+    sentiment_counts.append(sum(s3))
     #
     data = Data([
         Bar(
@@ -132,7 +130,7 @@ def review_sentiment(db_obj):
         )
     ])
     layout = go.Layout(
-        title=c.PHOTO_CATEGORIZED_BY_LABEL,
+        title=c.REVIEW_SENTIMENT,
         xaxis=dict(
             title='Sentiment Category'
         ),
@@ -146,3 +144,32 @@ def review_sentiment(db_obj):
     #
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
+#
+def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
+    """ An executable function which allows for parallel counting of sentiment analysis """
+    #
+    sql = sql_c.sql_REVIEWS + sql_filter
+    df = db_obj.execute_query(sql)
+    #
+    review_texts = []
+    [(review_texts.append(row[0])) for row in df]
+    #
+    sa = SentimentAnalyzer()
+    sentiment_counts = [0,0,0] # pos, neg, neu
+    #
+    # Perform sentiment analysis and return counts in 3 buckets
+    for i, text in enumerate(review_texts):
+        if i % 1000 == 0:
+            print('Performing sentiment analysis for year ' + str(year) + '... ' + str(i) + " records processed.")
+        sentiment = sa.predict(text)
+        if sentiment == sentiment_text[0]:
+            sentiment_counts[0] += 1
+        elif sentiment == sentiment_text[1]:
+            sentiment_counts[1] += 1
+        elif sentiment == sentiment_text[2]:
+            sentiment_counts[2] += 1
+        else:
+            print("Unhandled value. Terminate @review_sentiment()")
+    #
+    # We assign the count values to the original list we passed, in order for the thread to return an output
+    sentiment_count_results.append(sentiment_counts)

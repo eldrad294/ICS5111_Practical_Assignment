@@ -1,4 +1,5 @@
 from nltk.classify import NaiveBayesClassifier
+from nltk.corpus import stopwords
 #
 class SentimentAnalyzer():
     #
@@ -41,7 +42,13 @@ class SentimentAnalyzer():
     def predict(self,sentence):
         """ Public function. Takes a sentence as parameter and assigns a sentiment label to it (pos/neg/neu) """
         pos,neg,neu = 0,0,0
+        #
+        # Convert into bag of words
         sentence = sentence.lower().split(' ')
+        #
+        # Remove stop words
+        #filtered_words = [word for word in sentence if word not in stopwords.words('english')]
+        #
         for word in sentence:
             prediction = self.__NBclassifier.classify(self.__word_feats(word))
             if prediction == "pos":

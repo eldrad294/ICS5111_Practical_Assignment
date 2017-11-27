@@ -30,8 +30,6 @@ class visual():
     def boxplot_handler(self):
         """ A wrapper function which calls/encompasses the boxplot graph visuals """
         bph.review_count_metrics(self.db_obj)
-        #
-        bph.photo_metrics(self.db_obj)
     #
     def pieplot_handler(self):
         """ A wrapper function which calls/encompasses the pie graph visuals """
