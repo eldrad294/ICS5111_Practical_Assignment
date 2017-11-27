@@ -127,7 +127,6 @@ def review_sentiment(db_obj):
                 y=temp_list,
                 name=sentiment_text[i]
             )
-        print(temp_list)
         traces.append(trace)
     #
     data = traces
