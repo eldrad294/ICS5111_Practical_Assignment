@@ -108,7 +108,7 @@ def review_sentiment(db_obj):
     #
     # We initiate n number of jobs ranging from 2004 till 2017
     for i in range(2004, 2017):
-        sql_filter = ' where date like \'' + str(i) + '%\' LIMIT 100;'
+        sql_filter = ' where date like \'' + str(i) + '%\' and stars = 5 and useful > 0 LIMIT 10000;'
         process = Thread(target=review_sentiment_counter, args=[db_obj,sql_filter, sentiment_text, i])
         process.start()
         threads.append(process)
