@@ -4,3 +4,4 @@ sql_REVIEW_COUNT_METRICS = 'select review_count from yelp_db.business where is_o
 sql_BUSINESS_RATING_VS_REVIEW_COUNT = 'SELECT stars, review_count from yelp_db.business where is_open = 1;'
 sql_PHOTO_CATEGORIZED_BY_LABEL = 'SELECT count(label) as cnt, label FROM yelp_db.photo group by label;'
 sql_REVIEWS = 'SELECT text FROM yelp_db.review'
+sql_YELP_ELITE_OVER_TIME = 'SELECT count(e.user_id), e.year from yelp_db.elite_years e group by e.year;'

@@ -178,3 +178,35 @@ def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
     #
     # We assign the count values to the original list we passed, in order for the thread to return an output
     sentiment_count_results.append(sentiment_counts)
+#
+def yelp_elite_over_time(db_obj):
+    """ Displays user Yelp elite over time """
+    #
+    sql = sql_c.sql_YELP_ELITE_OVER_TIME
+    df = db_obj.execute_query(sql)
+    #
+    user_cnt, time = [], []
+    [(user_cnt.append(row[0]), time.append((row[1]))) for row in df]
+    #
+    data = Data([
+        Bar(
+            x=time,
+            y=user_cnt
+        )
+    ])
+    layout = go.Layout(
+        title=c.YELP_ELITE_OVER_TIME,
+        xaxis=dict(
+            title='Time 2005 - 2017'
+        ),
+        yaxis=dict(
+            title='Yelp Elite Count'
+        )
+    )
+    config = {'scrollZoom': True,
+              'linkText': "Visit plot.ly"}
+    fig = go.Figure(data=data, layout=layout)
+    #
+    # Plot and embed in ipython notebook!
+    plot(fig, config=config)
+#

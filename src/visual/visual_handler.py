@@ -14,13 +14,15 @@ class visual():
     def bar_handler(self):
         """ A wrapper function which calls/encompasses the bar graph visuals """
         #
-        bm.display_business_distribution_over_states(self.db_obj)
+        # bm.display_business_distribution_over_states(self.db_obj)
+        # #
+        # bm.business_rating_vs_review_count(self.db_obj)
+        # #
+        # bm.photo_labels_vs_count(self.db_obj)
+        # #
+        # bm.review_sentiment(self.db_obj)
         #
-        bm.business_rating_vs_review_count(self.db_obj)
-        #
-        bm.photo_labels_vs_count(self.db_obj)
-        #
-        bm.review_sentiment(self.db_obj)
+        bm.yelp_elite_over_time(self.db_obj)
     #
     def scatter_handler(self):
         """ A wrapper function which calls/encompasses the scatter plot visuals """

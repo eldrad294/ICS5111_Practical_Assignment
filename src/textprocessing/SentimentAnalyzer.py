@@ -47,9 +47,9 @@ class SentimentAnalyzer():
         sentence = sentence.lower().split(' ')
         #
         # Remove stop words
-        #filtered_words = [word for word in sentence if word not in stopwords.words('english')]
+        filtered_words = [word for word in sentence if word not in stopwords.words('english')]
         #
-        for word in sentence:
+        for word in filtered_words:
             prediction = self.__NBclassifier.classify(self.__word_feats(word))
             if prediction == "pos":
                 pos += 1
