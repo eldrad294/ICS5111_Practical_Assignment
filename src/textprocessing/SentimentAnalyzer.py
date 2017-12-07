@@ -26,7 +26,7 @@ class SentimentAnalyzer():
         # positive_vocab = ['awesome', 'outstanding', 'fantastic', 'terrific', 'good', 'nice', 'great', ':)',
         #                   'underpriced']
         # negative_vocab = ['bad', 'terrible', 'useless', 'hate', ':(', 'shit', 'strange', 'threw up', 'vomit',
-        #                   'overpriced']
+        #                   'overpriced', 'despicable', 'late', 'delayed', 'cancelled']
         # neutral_vocab = ['movie', 'the', 'sound', 'was', 'is', 'actors', 'did', 'know', 'words', 'not']
         positive_vocab = tuple(self.__word_corpus.get_negative_corpus()[0])
         negative_vocab = tuple(self.__word_corpus.get_negative_corpus()[0])
@@ -55,6 +55,7 @@ class SentimentAnalyzer():
         # Remove stop words
         filtered_words = [word for word in sentence if word not in stopwords.words('english')]
         #
+        #self.__NBclassifier.show_most_informative_features()
         for word in filtered_words:
             prediction = self.__NBclassifier.classify(self.__word_feats(word))
             if prediction == "pos":
