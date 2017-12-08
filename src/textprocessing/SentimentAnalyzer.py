@@ -28,7 +28,7 @@ class SentimentAnalyzer():
         # negative_vocab = ['bad', 'terrible', 'useless', 'hate', ':(', 'shit', 'strange', 'threw up', 'vomit',
         #                   'overpriced', 'despicable', 'late', 'delayed', 'cancelled']
         # neutral_vocab = ['movie', 'the', 'sound', 'was', 'is', 'actors', 'did', 'know', 'words', 'not']
-        positive_vocab = tuple(self.__word_corpus.get_negative_corpus()[0])
+        positive_vocab = tuple(self.__word_corpus.get_positive_corpus()[0])
         negative_vocab = tuple(self.__word_corpus.get_negative_corpus()[0])
         neutral_vocab = tuple(self.__word_corpus.get_neutral_corpus()[0])
         return positive_vocab, negative_vocab, neutral_vocab
