@@ -1,6 +1,7 @@
 from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import stopwords
 from src.textprocessing.Word_Corpus import WordCorpus
+from sklearn.metrics import accuracy_score
 #
 class SentimentAnalyzer():
     #
@@ -56,18 +57,25 @@ class SentimentAnalyzer():
         filtered_words = [word for word in sentence if word not in stopwords.words('english')]
         #
         #self.__NBclassifier.show_most_informative_features()
-        for word in filtered_words:
-            prediction = self.__NBclassifier.classify(self.__word_feats(word))
-            if prediction == "pos":
-                pos += 1
-            elif prediction == "neg":
-                neg += 1
-            elif prediction == "neu":
-                neu += 1
+        # for word in filtered_words:
+        #     prediction = self.__NBclassifier.classify(self.__word_feats(word))
+        #     if prediction == "pos":
+        #         pos += 1
+        #     elif prediction == "neg":
+        #         neg += 1
+        #     elif prediction == "neu":
+        #         neu += 1
+        filtered_words = " ".join(filtered_words)
+        prediction = self.__NBclassifier.classify(self.__word_feats(filtered_words))
+        return prediction
+    #
+    def accuracy(self):
+        """ Uses the classifier on the testing set of data to determine the accuracy """
         #
-        if pos > neg and pos > neu:
-            return "pos"
-        elif neg > pos and neg > neu:
-            return "neg"
-        else:
-            return "neu"
+        results = []
+        test_sentences, expected_results = self.__word_corpus.get_test_corpus()
+        #
+        for sentence in test_sentences:
+            results.append(self.__NBclassifier.classify(self.__word_feats(sentence)))
+        #
+        return accuracy_score(expected_results,results) * 100
