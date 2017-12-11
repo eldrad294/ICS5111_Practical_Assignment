@@ -2,6 +2,9 @@ from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import stopwords
 from src.textprocessing.Word_Corpus import WordCorpus
 from sklearn.metrics import accuracy_score
+from nltk.tokenize import RegexpTokenizer
+from nltk.tag import pos_tag
+import re
 #
 class SentimentAnalyzer():
     #
@@ -50,24 +53,51 @@ class SentimentAnalyzer():
         """ Public function. Takes a sentence as parameter and assigns a sentiment label to it (pos/neg/neu) """
         pos,neg,neu = 0,0,0
         #
-        # Convert into bag of words
-        sentence = sentence.lower().split(' ')
+        filtered_words = self.__clean_sentence(sentence)
+        self.__NBclassifier.show_most_informative_features()
+        for word in filtered_words:
+            print(word)
+            prediction = self.__NBclassifier.classify(self.__word_feats(word))
+            print(prediction)
+            if prediction == "pos":
+                pos += 1
+            elif prediction == "neg":
+                neg += 1
+            elif prediction == "neu":
+                neu += 1
+        #
+        print(pos)
+        print(neg)
+        print(neu)
+        if pos > neg and pos > neu:
+            return "pos"
+        elif neg > pos and neg > neu:
+            return "neg"
+        else:
+            return "neu"
+        # filtered_words = " ".join(filtered_words)
+        # prediction = self.__NBclassifier.classify(self.__word_feats(filtered_words))
+        #return prediction
+    #
+    def __clean_sentence(self,sentence):
+        #
+        # Remove numerics
+        sentence = re.sub(r'\d+', '', sentence)
+        #
+        # Remove punctuation
+        tokenizer = RegexpTokenizer(r'\w+')
+        sentence = tokenizer.tokenize((sentence.lower()))
         #
         # Remove stop words
         filtered_words = [word for word in sentence if word not in stopwords.words('english')]
         #
-        #self.__NBclassifier.show_most_informative_features()
-        # for word in filtered_words:
-        #     prediction = self.__NBclassifier.classify(self.__word_feats(word))
-        #     if prediction == "pos":
-        #         pos += 1
-        #     elif prediction == "neg":
-        #         neg += 1
-        #     elif prediction == "neu":
-        #         neu += 1
-        filtered_words = " ".join(filtered_words)
-        prediction = self.__NBclassifier.classify(self.__word_feats(filtered_words))
-        return prediction
+        # Noun Tagging & Removal
+        tagged_sentence = pos_tag(filtered_words)
+        stripped_tags = ['NN','NNS','NNP','CD'] # https://stackoverflow.com/questions/15388831/what-are-all-possible-pos-tags-of-nltk
+        filtered_words = [word for word,type in tagged_sentence if type not in stripped_tags]
+        print(tagged_sentence)
+        #
+        return filtered_words
     #
     def accuracy(self):
         """ Uses the classifier on the testing set of data to determine the accuracy """
@@ -78,4 +108,4 @@ class SentimentAnalyzer():
         for sentence in test_sentences:
             results.append(self.__NBclassifier.classify(self.__word_feats(sentence)))
         #
-        return accuracy_score(expected_results,results) * 100
+        return str(accuracy_score(expected_results,results) * 100) + '%'
