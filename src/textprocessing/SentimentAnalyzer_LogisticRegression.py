@@ -1,10 +1,15 @@
-from nltk.classify import NaiveBayesClassifier
-from nltk import precision
-from sklearn.naive_bayes import MultinomialNB
+from src.textprocessing.Scoring_Functions import Scoring_Functions
+from nltk.corpus import stopwords
 from src.textprocessing.Word_Corpus import WordCorpus
 from sklearn.metrics import accuracy_score
+from nltk.tokenize import RegexpTokenizer
+from nltk.tag import pos_tag
+from nltk import PorterStemmer
 from src.textprocessing.Text_Cleanup import TextCleanup
-from src.textprocessing.Scoring_Functions import Scoring_Functions
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_extraction.text import TfidfVectorizer
+import re
+import numpy as np
 #
 class SentimentAnalyzer():
     #
@@ -15,45 +20,44 @@ class SentimentAnalyzer():
             print(pred)
     """
     def __init__(self):
+        self.vectorizer = TfidfVectorizer()
         self.__word_corpus = WordCorpus()
-        train_set = self.__format_vocab()
-        self.__NBclassifier = self.__train_classifier(train_set)
+        X, y = self.__format_vocab()
+        self.__LRclassifier = self.__train_classifier(X, y)
         self.text_cleanup = TextCleanup()
-    #
-    def __word_feats(self, words):
-        """ Takes a word and converts it into a python dictionary """
-        return dict([(words.lower(), True)])
     #
     def __format_vocab(self):
         """ Returns an entire set of vocab which is marked as either 1) Positive, 2) Negative, 3) Neutral for NLTK
         classification """
         positive_vocab, negative_vocab, neutral_vocab = self.__word_corpus.get_vocab()
+        pos_list, neu_list, neg_list = [],[],[]
         #
-        positive_features = [(self.__word_feats(str(pos)), 'pos') for pos in positive_vocab]
-        negative_features = [(self.__word_feats(str(neg)), 'neg') for neg in negative_vocab]
-        neutral_features = [(self.__word_feats(str(neu)), 'neu') for neu in neutral_vocab]
+        [(pos_list.append('pos')) for i in range(len(positive_vocab))]
+        [(neu_list.append('neu')) for i in range(len(neutral_vocab))]
+        [(neg_list.append('neg')) for i in range(len(negative_vocab))]
         #
-        return positive_features + negative_features + neutral_features
+        return positive_vocab + negative_vocab + neutral_vocab, pos_list + neu_list + neg_list
     #
-    def __train_classifier(self, train_set, train_labels=None):
+    def __train_classifier(self, X, y=None):
         """ Takes the training vocab (consisting of pos,neg,neu) vocab and trains itself """
         #
-        # NLTK's Naive Bayes classifier.
-        print(train_set)
-        return NaiveBayesClassifier.train(train_set)
+        # Logistic Regression Classifier
+        X = self.vectorizer.fit_transform(X)
+        return LogisticRegression().fit(X,y)
     #
     def __classify(self, word):
         """ Takes input sample and classifies it as either pos / neu / neg """
         #
-        # NLTK Naive Bayes Classification
-        return self.__NBclassifier.classify(self.__word_feats(word))
+        # Logistic Regression Classifier
+        word = self.vectorizer.fit_transform(word)
+        print(word)
+        return self.__LRclassifier.predict(word)
     #
     def predict(self,sentence):
         """ Public function. Takes a sentence as parameter and assigns a sentiment label to it (pos/neg/neu) """
         pos,neg,neu = 0,0,0
         #
-        filtered_words = self.text_cleanup.clean_sentence(sentence)
-        #self.__NBclassifier.show_most_informative_features()
+        filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
             prediction = self.__classify(word)
             print(str(word) + " - " + str(prediction))
@@ -81,7 +85,7 @@ class SentimentAnalyzer():
         results = []
         test_sentences, expected_results = self.__word_corpus.get_test_corpus()
         #
-        [(results.append(self.__NBclassifier.classify(self.__word_feats(sentence)))) for sentence in test_sentences]
+        [(results.append(self.__LRclassifier.predict(sentence))) for sentence in test_sentences]
         #
         accuracy = Scoring_Functions().accuracy(list(results) ,list(expected_results))
         precision = Scoring_Functions().precision(set(results) ,set(expected_results))
