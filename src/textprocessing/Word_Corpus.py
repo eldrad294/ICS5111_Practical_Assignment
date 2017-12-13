@@ -11,15 +11,23 @@ class WordCorpus():
                                                      encoding = "ISO-8859-1")
         self.__testing_corpus = pd.read_csv('../data/Active Data/Test/Test_Corpus.csv')
     #
-    def get_positive_corpus(self):
+    def __get_positive_corpus(self):
         return self.__training_positive_corpus
     #
-    def get_negative_corpus(self):
+    def __get_negative_corpus(self):
         return self.__training_negative_corpus
     #
-    def get_neutral_corpus(self):
+    def __get_neutral_corpus(self):
         return self.__training_neutral_corpus
     #
     def get_test_corpus(self):
         text, classifications = self.__testing_corpus['text'], self.__testing_corpus['classification']
         return text, classifications
+    #
+    def get_vocab(self):
+        """ Our vocab corpus, returns 3 lists (positive,negative,neutral)
+            This will need to be replaced with the actual nltk/equivalent word corpus"""
+        positive_vocab = tuple(self.__get_positive_corpus()[0])
+        negative_vocab = tuple(self.__get_negative_corpus()[0])
+        neutral_vocab = tuple(self.__get_neutral_corpus()[0])
+        return positive_vocab, negative_vocab, neutral_vocab
