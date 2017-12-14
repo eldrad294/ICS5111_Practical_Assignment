@@ -1,8 +1,10 @@
 import plotly.graph_objs as go
 from plotly.offline import plot
-import src.constants.string_consts as c
-from src.preproc.preprocessing import Preprocessing
+
 import src.constants.sql_consts as sql_c
+import src.constants.string_consts as c
+
+
 #
 def review_count_metrics(db_obj):
     """ Displays box plot metric of business review counts for those which are open. We set review_count < 50 to

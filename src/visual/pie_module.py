@@ -1,8 +1,10 @@
 import plotly.graph_objs as go
 from plotly.offline import plot
-import src.constants.string_consts as c
+
 import src.constants.sql_consts as sql_c
-from src.preproc.preprocessing import Preprocessing
+import src.constants.string_consts as c
+
+
 #
 def display_business_distribution_over_states(db_obj):
     """" Displays a spread of top 15 states with highest business count """
