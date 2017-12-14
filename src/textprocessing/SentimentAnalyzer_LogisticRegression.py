@@ -1,15 +1,8 @@
 from src.textprocessing.Scoring_Functions import Scoring_Functions
-from nltk.corpus import stopwords
 from src.textprocessing.Word_Corpus import WordCorpus
-from sklearn.metrics import accuracy_score
-from nltk.tokenize import RegexpTokenizer
-from nltk.tag import pos_tag
-from nltk import PorterStemmer
 from src.textprocessing.Text_Cleanup import TextCleanup
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-import re
-import numpy as np
 #
 class SentimentAnalyzer():
     #
@@ -49,8 +42,7 @@ class SentimentAnalyzer():
         """ Takes input sample and classifies it as either pos / neu / neg """
         #
         # Logistic Regression Classifier
-        word = self.vectorizer.fit_transform(word)
-        print(word)
+        word = self.vectorizer.transform([word])
         return self.__LRclassifier.predict(word)
     #
     def predict(self,sentence):
@@ -60,7 +52,7 @@ class SentimentAnalyzer():
         filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
             prediction = self.__classify(word)
-            print(str(word) + " - " + str(prediction))
+            #print(str(word) + " - " + str(prediction))
             if prediction == "pos":
                 pos += 1
             elif prediction == "neg":
@@ -68,10 +60,10 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('-----------------')
-        print(pos)
-        print(neu)
-        print(neg)
+        # print('-----------------')
+        # print(pos)
+        # print(neu)
+        # print(neg)
         if pos > neg and pos > neu:
             return "pos"
         elif neg > pos and neg > neu:
@@ -82,13 +74,14 @@ class SentimentAnalyzer():
     def test_set(self):
         """ Public function. Uses the classifier on the testing set of data to determine the accuracy """
         #
-        results = []
-        test_sentences, expected_results = self.__word_corpus.get_test_corpus()
+        y_pred, y_true = [], []
+        test_sentences, y_true = self.__word_corpus.get_test_corpus()
         #
-        [(results.append(self.__LRclassifier.predict(sentence))) for sentence in test_sentences]
+        [(y_pred.append(self.predict(sentence))) for sentence in test_sentences]
         #
-        accuracy = Scoring_Functions().accuracy(list(results) ,list(expected_results))
-        precision = Scoring_Functions().precision(set(results) ,set(expected_results))
-        recall = Scoring_Functions().recall(set(results) ,set(expected_results))
-        f_measure = Scoring_Functions().f_measure(set(results) ,set(expected_results))
+        score_func = Scoring_Functions(y_pred, y_true)
+        accuracy = score_func.accuracy()
+        precision = score_func.precision()
+        recall = score_func.recall()
+        f_measure = score_func.f_measure()
         return "Accuracy: " + str(accuracy) + "\nPrecision: " + str(precision) + "\nRecall: " + str(recall) + "\nF_Measure: " + str(f_measure)

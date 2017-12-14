@@ -78,13 +78,14 @@ class SentimentAnalyzer():
     def test_set(self):
         """ Public function. Uses the classifier on the testing set of data to determine the accuracy """
         #
-        results = []
-        test_sentences, expected_results = self.__word_corpus.get_test_corpus()
+        y_pred, y_true = [], []
+        test_sentences, y_true = self.__word_corpus.get_test_corpus()
         #
-        [(results.append(self.__NBclassifier.classify(self.__word_feats(sentence)))) for sentence in test_sentences]
+        [(y_pred.append(self.predict(sentence))) for sentence in test_sentences]
         #
-        accuracy = Scoring_Functions().accuracy(list(results) ,list(expected_results))
-        precision = Scoring_Functions().precision(set(results) ,set(expected_results))
-        recall = Scoring_Functions().recall(set(results) ,set(expected_results))
-        f_measure = Scoring_Functions().f_measure(set(results) ,set(expected_results))
+        score_func = Scoring_Functions(y_pred, y_true)
+        accuracy = score_func.accuracy()
+        precision = score_func.precision()
+        recall = score_func.recall()
+        f_measure = score_func.f_measure()
         return "Accuracy: " + str(accuracy) + "\nPrecision: " + str(precision) + "\nRecall: " + str(recall) + "\nF_Measure: " + str(f_measure)

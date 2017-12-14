@@ -31,6 +31,4 @@ class TextCleanup():
         stripped_tags = ['NN','NNS','NNP','CD'] # https://stackoverflow.com/questions/15388831/what-are-all-possible-pos-tags-of-nltk
         filtered_words = [word for word,type in tagged_sentence if type not in stripped_tags]
         #
-        print(tagged_sentence)
-        #
         return filtered_words
