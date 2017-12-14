@@ -7,7 +7,7 @@ class db():
             #
             db_obj = db('127.0.0.1','yelp_db','root','1234')
             sql = "SELECT * FROM yelp_db.review limit 10;"
-            cursor = db_obj.execute_query(sql)
+            cursor = db_obj.select_query(sql)
             print(cursor)
     """
     def __init__(self, url, db_name, username, password):
@@ -39,8 +39,8 @@ class db():
         except Exception as e:
             print(str(e))
     #
-    def execute_query(self, sql):
-        """ Takes an sql query and executes it through the DB """
+    def select_query(self, sql):
+        """ Takes an sql query and executes it through the DB. Reserved for select statements """
         conn = None
         try:
             conn = self.__connect()
@@ -55,6 +55,25 @@ class db():
             #
             self.__close(conn)
             return cur
+        except Exception as e:
+            if conn is not None:
+                self.__close(conn)
+            print(str(e))
+            #
+    def execute_query(self, sql):
+        """ Takes an sql query and executes it through the DB. Reserved for insert/update/delete statements """
+        conn = None
+        try:
+            conn = self.__connect()
+            #
+            cur = conn.cursor()
+            #
+            # Executes the sql statement across the database
+            cur.execute(sql)
+            #
+            conn.commit()
+            #
+            self.__close(conn)
         except Exception as e:
             if conn is not None:
                 self.__close(conn)

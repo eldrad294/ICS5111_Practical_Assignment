@@ -39,7 +39,7 @@ class SentimentAnalyzer():
         """ Takes the training vocab (consisting of pos,neg,neu) vocab and trains itself """
         #
         # NLTK's Naive Bayes classifier.
-        print(train_set)
+        #print(train_set)
         return NaiveBayesClassifier.train(train_set)
     #
     def __classify(self, word):
@@ -56,7 +56,7 @@ class SentimentAnalyzer():
         #self.__NBclassifier.show_most_informative_features()
         for word in filtered_words:
             prediction = self.__classify(word)
-            print(str(word) + " - " + str(prediction))
+            #print(str(word) + " - " + str(prediction))
             if prediction == "pos":
                 pos += 1
             elif prediction == "neg":
@@ -64,10 +64,10 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('-----------------')
-        print(pos)
-        print(neu)
-        print(neg)
+        # print('-----------------')
+        # print(pos)
+        # print(neu)
+        # print(neg)
         if pos > neg and pos > neu:
             return "pos"
         elif neg > pos and neg > neu:

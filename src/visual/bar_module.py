@@ -13,7 +13,7 @@ def display_business_distribution_over_states(db_obj):
     """" Displays a spread of businesses distributed per state """
     #
     sql = sql_c.sql_BUSINESS_DISTRIBUTION_OVER_STATES_2
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     states,state_count = [],[]
     [(state_count.append(row[0]), states.append(row[1])) for row in df]
@@ -42,7 +42,7 @@ def business_rating_vs_review_count(db_obj):
     """ Displays business star rating vs the amount of review counts per business (which are still active)"""
     #
     sql = sql_c.sql_BUSINESS_RATING_VS_REVIEW_COUNT
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     stars, review_count = [], []
     [(stars.append(row[0]), review_count.append(row[1])) for row in df]
@@ -73,7 +73,7 @@ def photo_labels_vs_count(db_obj):
     """ Displays photo label/genre vs respective count """
     #
     sql = sql_c.sql_PHOTO_CATEGORIZED_BY_LABEL
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     label_cnt, label = [], []
     [(label_cnt.append(row[0]), label.append((row[1]))) for row in df]
@@ -152,7 +152,7 @@ def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
     """ An executable function which allows for parallel counting of sentiment analysis """
     #
     sql = sql_c.sql_REVIEWS + sql_filter
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     review_texts = []
     [(review_texts.append(row[0])) for row in df]
@@ -183,7 +183,7 @@ def yelp_elite_over_time(db_obj):
     """ Displays user Yelp elite over time """
     #
     sql = sql_c.sql_YELP_ELITE_OVER_TIME
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     user_cnt, time = [], []
     [(user_cnt.append(row[0]), time.append((row[1]))) for row in df]

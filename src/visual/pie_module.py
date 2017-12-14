@@ -10,7 +10,7 @@ def display_business_distribution_over_states(db_obj):
     """" Displays a spread of top 15 states with highest business count """
     #
     sql = sql_c.sql_BUSINESS_DISTRIBUTION_OVER_STATES
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     states,state_count = [],[]
     [(state_count.append(row[0]), states.append(row[1])) for row in df]

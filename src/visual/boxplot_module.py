@@ -1,6 +1,5 @@
 import plotly.graph_objs as go
 from plotly.offline import plot
-
 import src.constants.sql_consts as sql_c
 import src.constants.string_consts as c
 
@@ -11,7 +10,7 @@ def review_count_metrics(db_obj):
     eliminate outlier data (ie: Businesses with review_counts so large they skew our data representation) """
     #
     sql = sql_c.sql_REVIEW_COUNT_METRICS
-    df = db_obj.execute_query(sql)
+    df = db_obj.select_query(sql)
     #
     review_count = []
     [(review_count.append(row[0])) for row in df]
