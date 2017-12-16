@@ -48,6 +48,7 @@ class SentimentAnalyzer():
     def predict(self,sentence):
         """ Public function. Takes a sentence as parameter and assigns a sentiment label to it (pos/neg/neu) """
         pos,neg,neu = 0,0,0
+        neutral_weight = 1 # We introduce a weight to positive and negative scalar counts, to classify as neutral in the case of close pos-neg tie ins
         #
         filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
@@ -60,13 +61,11 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        # print('-----------------')
-        # print(pos)
-        # print(neu)
-        # print(neg)
-        if pos > neg and pos > neu:
+        print('-----------------\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
+        print(sentence)
+        if pos-neutral_weight > neg and pos-neutral_weight > neu:
             return "pos"
-        elif neg > pos and neg > neu:
+        elif neg-neutral_weight > pos and neg-neutral_weight > neu:
             return "neg"
         else:
             return "neu"
