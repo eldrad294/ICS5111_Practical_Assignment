@@ -4,16 +4,21 @@ from plotly.graph_objs import *
 import src.constants.string_consts as c
 import src.constants.sql_consts as sql_c
 from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
-from threading import Thread
 from operator import itemgetter
+from multiprocessing import Process
+import multiprocessing
 #
-sentiment_count_results = []
-#
-def display_business_distribution_over_states(db_obj, conn):
+def display_business_distribution_over_states(db_obj):
     """" Displays a spread of businesses distributed per state """
+    #
+    # Open database connection
+    conn = db_obj.connect()
     #
     sql = sql_c.sql_BUSINESS_DISTRIBUTION_OVER_STATES_2
     df = db_obj.select_query(conn, sql)
+    #
+    # Close database connection
+    db_obj.close(conn)
     #
     states,state_count = [],[]
     [(state_count.append(row[0]), states.append(row[1])) for row in df]
@@ -38,11 +43,17 @@ def display_business_distribution_over_states(db_obj, conn):
     fig = go.Figure(data=data, layout=layout)
     plot(fig, config=config)
 #
-def business_rating_vs_review_count(db_obj, conn):
+def business_rating_vs_review_count(db_obj):
     """ Displays business star rating vs the amount of review counts per business (which are still active)"""
+    #
+    # Open database connection
+    conn = db_obj.connect()
     #
     sql = sql_c.sql_BUSINESS_RATING_VS_REVIEW_COUNT
     df = db_obj.select_query(conn, sql)
+    #
+    # Close database connection
+    db_obj.close(conn)
     #
     stars, review_count = [], []
     [(stars.append(row[0]), review_count.append(row[1])) for row in df]
@@ -69,11 +80,17 @@ def business_rating_vs_review_count(db_obj, conn):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def photo_labels_vs_count(db_obj, conn):
+def photo_labels_vs_count(db_obj):
     """ Displays photo label/genre vs respective count """
+    #
+    # Open database connection
+    conn = db_obj.connect()
     #
     sql = sql_c.sql_PHOTO_CATEGORIZED_BY_LABEL
     df = db_obj.select_query(conn, sql)
+    #
+    # Close database connection
+    db_obj.close(conn)
     #
     label_cnt, label = [], []
     [(label_cnt.append(row[0]), label.append((row[1]))) for row in df]
@@ -100,27 +117,37 @@ def photo_labels_vs_count(db_obj, conn):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def review_sentiment(db_obj, conn):
+def review_sentiment(db_obj):
     """ Displays review sentiment based on positive/negative/neutral reviews """
     #
-    traces, threads = [], []
+    traces, threads, connections = [], [], []
     sentiment_text = ['pos', 'neg', 'neu']
+    manager = multiprocessing.Manager()
+    sentiment_count_results = manager.dict()
     #
     # We initiate n number of jobs ranging from 2004 till 2017
-    for i in range(2004, 2017):
-        process = Thread(target=review_sentiment_counter, args=[db_obj, sentiment_text, i, conn])
+    for year in range(2004, 2017):
+        #
+        # Open database connection
+        conn = db_obj.connect()
+        process = Process(target=review_sentiment_counter, args=[db_obj, sentiment_text, year, conn, sentiment_count_results])
         process.start()
         threads.append(process)
-    #
+        connections.append(conn)
     #
     # We wait for all threads to finish
     for process in threads:
         process.join()
     #
-    sentiment_counts = sorted(sentiment_count_results, key=itemgetter(3))
+    # Close all connections
+    for conn in connections:
+        #
+        # Close database connection
+        db_obj.close(conn)
+    #
     for i in range(len(sentiment_text)):
         temp_list = []
-        [(temp_list.append(row[i]))for row in sentiment_counts]
+        [(temp_list.append(v[i]))for k, v in sentiment_count_results.items()]
         trace = go.Bar(
                 x=['2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016'],
                 y=temp_list,
@@ -147,7 +174,7 @@ def review_sentiment(db_obj, conn):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def review_sentiment_counter(db_obj, sentiment_text, year, conn):
+def review_sentiment_counter(db_obj, sentiment_text, year, conn, sentiment_count_results):
     """ An executable function which allows for parallel counting of sentiment analysis """
     #
     sql = sql_c.sql_REVIEWS(year)
@@ -161,7 +188,7 @@ def review_sentiment_counter(db_obj, sentiment_text, year, conn):
     #
     # Perform sentiment analysis and return counts in 3 buckets
     for i, text in enumerate(review_texts):
-        if i % 1000 == 0:
+        if i % 10000 == 0:
             print('Performing sentiment analysis for year ' + str(year) + '... ' + str(i) + " records processed.")
         sentiment = sa.predict(text)
         if sentiment == sentiment_text[0]:
@@ -173,16 +200,20 @@ def review_sentiment_counter(db_obj, sentiment_text, year, conn):
         else:
             print("Unhandled value. Terminate @review_sentiment()")
     #
-    sentiment_counts.append(year)
-    #
     # We assign the count values to the original list we passed, in order for the thread to return an output
-    sentiment_count_results.append(sentiment_counts)
+    sentiment_count_results[year] = sentiment_counts
 #
-def yelp_elite_over_time(db_obj, conn):
+def yelp_elite_over_time(db_obj):
     """ Displays user Yelp elite over time """
+    #
+    # Open database connection
+    conn = db_obj.connect()
     #
     sql = sql_c.sql_YELP_ELITE_OVER_TIME
     df = db_obj.select_query(conn, sql)
+    #
+    # Close database connection
+    db_obj.close(conn)
     #
     user_cnt, time = [], []
     [(user_cnt.append(row[0]), time.append((row[1]))) for row in df]
