@@ -8,11 +8,13 @@ from src.textprocessing.Scoring_Functions import Scoring_Functions
 #
 class SentimentAnalyzer():
     #
-    """ An example as to how invoke and use this class:
-            from src.textprocessing.SentimentAnalyzer import SentimentAnalyzer
-            sa = SentimentAnalyzer()
-            pred = sa.predict("I will never go there again")
-            print(pred)
+    """
+    Example:
+
+    from src.textprocessing.SentimentAnalyzer import SentimentAnalyzer
+    sa = SentimentAnalyzer()
+    pred = sa.predict("I will never go there again")
+    print(pred)
     """
     def __init__(self):
         self.__word_corpus = WordCorpus()

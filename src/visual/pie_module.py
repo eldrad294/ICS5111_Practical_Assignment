@@ -6,11 +6,11 @@ import src.constants.string_consts as c
 
 
 #
-def display_business_distribution_over_states(db_obj):
+def display_business_distribution_over_states(db_obj, conn):
     """" Displays a spread of top 15 states with highest business count """
     #
     sql = sql_c.sql_BUSINESS_DISTRIBUTION_OVER_STATES
-    df = db_obj.select_query(sql)
+    df = db_obj.select_query(conn, sql)
     #
     states,state_count = [],[]
     [(state_count.append(row[0]), states.append(row[1])) for row in df]

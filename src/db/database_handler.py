@@ -16,8 +16,9 @@ class db():
         self.username = username
         self.password = password
         self.db_name = db_name
+        #
     #
-    def __connect(self):
+    def connect(self):
         """ DB connect method """
         # Connect with the MySQL Server
         conn = None
@@ -31,7 +32,7 @@ class db():
             print(str(e))
         return conn
     #
-    def __close(self, conn):
+    def close(self, conn):
         """ Closes DB connection """
         try:
             conn.close()
@@ -39,12 +40,9 @@ class db():
         except Exception as e:
             print(str(e))
     #
-    def select_query(self, sql):
+    def select_query(self, conn, sql):
         """ Takes an sql query and executes it through the DB. Reserved for select statements """
-        conn = None
         try:
-            conn = self.__connect()
-            #
             cur = conn.cursor()
             #
             # Executes the sql statement across the database
@@ -52,19 +50,13 @@ class db():
             #
             # Converts retrieved cursor into list of tuples
             cur = cur.fetchall()
-            #
-            self.__close(conn)
             return cur
         except Exception as e:
-            if conn is not None:
-                self.__close(conn)
             print(str(e))
             #
-    def execute_query(self, sql):
+    def execute_query(self, conn, sql):
         """ Takes an sql query and executes it through the DB. Reserved for insert/update/delete statements """
-        conn = None
         try:
-            conn = self.__connect()
             #
             cur = conn.cursor()
             #
@@ -72,9 +64,6 @@ class db():
             cur.execute(sql)
             #
             conn.commit()
-            #
-            self.__close(conn)
+            print('SQL Executed!')
         except Exception as e:
-            if conn is not None:
-                self.__close(conn)
             print(str(e))

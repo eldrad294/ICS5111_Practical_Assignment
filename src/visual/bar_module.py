@@ -9,11 +9,11 @@ from operator import itemgetter
 #
 sentiment_count_results = []
 #
-def display_business_distribution_over_states(db_obj):
+def display_business_distribution_over_states(db_obj, conn):
     """" Displays a spread of businesses distributed per state """
     #
     sql = sql_c.sql_BUSINESS_DISTRIBUTION_OVER_STATES_2
-    df = db_obj.select_query(sql)
+    df = db_obj.select_query(conn, sql)
     #
     states,state_count = [],[]
     [(state_count.append(row[0]), states.append(row[1])) for row in df]
@@ -38,11 +38,11 @@ def display_business_distribution_over_states(db_obj):
     fig = go.Figure(data=data, layout=layout)
     plot(fig, config=config)
 #
-def business_rating_vs_review_count(db_obj):
+def business_rating_vs_review_count(db_obj, conn):
     """ Displays business star rating vs the amount of review counts per business (which are still active)"""
     #
     sql = sql_c.sql_BUSINESS_RATING_VS_REVIEW_COUNT
-    df = db_obj.select_query(sql)
+    df = db_obj.select_query(conn, sql)
     #
     stars, review_count = [], []
     [(stars.append(row[0]), review_count.append(row[1])) for row in df]
@@ -69,11 +69,11 @@ def business_rating_vs_review_count(db_obj):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def photo_labels_vs_count(db_obj):
+def photo_labels_vs_count(db_obj, conn):
     """ Displays photo label/genre vs respective count """
     #
     sql = sql_c.sql_PHOTO_CATEGORIZED_BY_LABEL
-    df = db_obj.select_query(sql)
+    df = db_obj.select_query(conn, sql)
     #
     label_cnt, label = [], []
     [(label_cnt.append(row[0]), label.append((row[1]))) for row in df]
@@ -100,7 +100,7 @@ def photo_labels_vs_count(db_obj):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def review_sentiment(db_obj):
+def review_sentiment(db_obj, conn):
     """ Displays review sentiment based on positive/negative/neutral reviews """
     #
     traces, threads = [], []
@@ -108,8 +108,7 @@ def review_sentiment(db_obj):
     #
     # We initiate n number of jobs ranging from 2004 till 2017
     for i in range(2004, 2017):
-        sql_filter = ' where date like \'' + str(i) + '%\' and stars = 5 and useful > 0 LIMIT 10000;'
-        process = Thread(target=review_sentiment_counter, args=[db_obj,sql_filter, sentiment_text, i])
+        process = Thread(target=review_sentiment_counter, args=[db_obj, sentiment_text, i, conn])
         process.start()
         threads.append(process)
     #
@@ -148,11 +147,11 @@ def review_sentiment(db_obj):
     # Plot and embed in ipython notebook!
     plot(fig, config=config)
 #
-def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
+def review_sentiment_counter(db_obj, sentiment_text, year, conn):
     """ An executable function which allows for parallel counting of sentiment analysis """
     #
-    sql = sql_c.sql_REVIEWS + sql_filter
-    df = db_obj.select_query(sql)
+    sql = sql_c.sql_REVIEWS(year)
+    df = db_obj.select_query(conn, sql)
     #
     review_texts = []
     [(review_texts.append(row[0])) for row in df]
@@ -179,11 +178,11 @@ def review_sentiment_counter(db_obj, sql_filter, sentiment_text, year):
     # We assign the count values to the original list we passed, in order for the thread to return an output
     sentiment_count_results.append(sentiment_counts)
 #
-def yelp_elite_over_time(db_obj):
+def yelp_elite_over_time(db_obj, conn):
     """ Displays user Yelp elite over time """
     #
     sql = sql_c.sql_YELP_ELITE_OVER_TIME
-    df = db_obj.select_query(sql)
+    df = db_obj.select_query(conn, sql)
     #
     user_cnt, time = [], []
     [(user_cnt.append(row[0]), time.append((row[1]))) for row in df]

@@ -1,6 +1,5 @@
-from src.visual.visual_handler import visual
-from src.db.core import Core
-#visual().bar_handler()
+# from src.visual.visual_handler import visual
+# visual().bar_handler()
 # visual().boxplot_handler()
 # visual().pieplot_handler()
 #
@@ -15,5 +14,10 @@ from src.db.core import Core
 #
 # ---------------------------------------
 #
-c = Core('restaurant', [43.8409,-79.3996])
-c.populate_table_business_user_sentiment()
+from src.db.core import Core
+c = Core()
+#c.populate_table_business_user_sentiment()
+time = ['Sunday','10:00']
+coordinates = [43.8409,-79.3996]
+json = c.get_suggested_businesses('Food',coordinates,time,100)
+print(json)
