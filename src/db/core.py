@@ -1,6 +1,7 @@
 import src.constants.sql_consts as sc
 from src.db.database_handler import db
 from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
+from src.utils.json_formatter import json_formatter
 import json
 #
 class Core():
@@ -15,6 +16,7 @@ class Core():
     def __init__(self):
         self.db_obj = db('127.0.0.1', 'yelp_db', 'root', '1234')
         self.sa = SentimentAnalyzer()
+        self.jf = json_formatter('suggested_businesses.json')
     #
     def get_suggested_businesses(self, business_category, location, time, N):
         """
@@ -28,7 +30,7 @@ class Core():
         #
         # Input validation
         business_category = business_category.title()
-        sentiment_threshold = 0
+        sentiment_threshold = 1
         #
         # Establish database connection
         conn = self.db_obj.connect()
@@ -42,7 +44,7 @@ class Core():
         self.db_obj.close(conn)
         #
         # Return cursor as JSON format
-        return json.dumps(business_cursor)
+        self.jf.suggested_businesses_to_json(business_cursor)
     #
     def populate_table_business_user_sentiment(self):
         """

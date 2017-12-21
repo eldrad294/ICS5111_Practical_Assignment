@@ -1,0 +1,53 @@
+{
+"nodes": [
+{"name": "MacDonalds", "age":50, "type": "green", "fx": 100, "fy": 400, "fixed":true},
+{"name": "PizzaHut", "age":51, "type": "green", "fx": 600, "fy": 600, "fixed":true},
+{"name": "BurgerKing", "age":49, "type": "green", "fx": 300, "fy": 400, "fixed":true},
+{"name": "CostaCoffee", "age":50, "type": "green", "fx": 400, "fy": 400, "fixed":true},
+{"name": "GrassyHopper", "age":51, "type": "green", "fx": 500, "fy": 500, "fixed":true},
+{"name": "HardRock", "age":49, "type": "green", "fx": 200, "fy": 500, "fixed":true},
+{"name": "Gabriel", "age":20, "type": "blue"},
+{"name": "Rachel", "age":17, "type": "grey"},
+{"name": "Mark", "age":17, "type": "blue"},
+{"name": "Marvin", "age":17, "type": "blue"},
+{"name": "Raphael", "age":20, "type": "blue"},
+{"name": "Stephen", "age":20, "type": "blue"},
+{"name": "Veronica", "age":20, "type": "red"},
+{"name": "Ivan", "age":20, "type": "grey"},
+{"name": "Catherine", "age":20, "type": "red"},
+{"name": "Simon", "age":17, "type": "blue"},
+{"name": "Raymond", "age":20, "type": "blue"},
+{"name": "Stefan", "age":20, "type": "blue"},
+{"name": "Vivienne", "age":20, "type": "red"},
+{"name": "John", "age":20, "type": "grey"}
+],
+
+"links": [
+{"source": "MacDonalds", "target": "Gabriel"},
+{"source": "MacDonalds", "target": "Catherine"},
+{"source": "MacDonalds", "target": "Mark"},
+{"source": "MacDonalds", "target": "Marvin"},
+{"source": "PizzaHut", "target": "Gabriel"},
+{"source": "PizzaHut", "target": "Rachel"},
+{"source": "PizzaHut", "target": "Raphael"},
+{"source": "BurgerKing", "target": "Raphael"},
+{"source": "BurgerKing", "target": "Ivan"},
+{"source": "BurgerKing", "target": "Stephen"},
+{"source": "BurgerKing", "target": "Veronica"},
+{"source": "BurgerKing", "target": "Catherine"},
+{"source": "PizzaHut", "target": "Rachel"},
+{"source": "PizzaHut", "target": "Raphael"},
+{"source": "CostaCoffee", "target": "Raphael"},
+{"source": "GrassyHopper", "target": "Simon"},
+{"source": "CostaCoffee", "target": "Simon"},
+{"source": "CostaCoffee", "target": "Veronica"},
+{"source": "GrassyHopper", "target": "Catherine"},
+{"source": "HardRock", "target": "Simon"},
+{"source": "HardRock", "target": "Vivienne"},
+{"source": "HardRock", "target": "John"},
+{"source": "BurgerKing", "target": "Stefan"},
+{"source": "BurgerKing", "target": "Raymond"},
+{"source": "BurgerKing", "target": "Gabriel"}
+]
+
+}

@@ -9,24 +9,25 @@ sql_REVIEWS = lambda year : 'SELECT text FROM yelp_db.review where date like \''
 sql_YELP_ELITE_OVER_TIME = 'SELECT count(e.user_id), e.year from yelp_db.elite_years e group by e.year;'
 #
 # Other SQLs
-sql_REVIEW_BUSINESS_AND_TEXT = 'select business_id, text from yelp_db.review;'
+sql_REVIEW_BUSINESS_AND_TEXT = 'select business_id, text from yelp_db.review where useful > 0;'
 sql_UPDATE_BUSINESS =  lambda sentiment_vector, id : 'update yelp_db.business_user_sentiment set user_sentiment = ' + str(sentiment_vector) + ' where id = \'' + str(id) + '\';'
-sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold, time, N : "select b.id, " \
-                                                                                           "       b.name, " \
-                                                                                           "       b.haversine_distance, " \
-                                                                                           "       b.latitude, " \
-                                                                                           "       b.longitude, " \
-                                                                                           "       b.address, " \
-                                                                                           "       b.neighborhood, " \
-                                                                                           "       b.stars, " \
-                                                                                           "       b.review_count, " \
-                                                                                           "       case " \
-                                                                                           "         when substring(h.hours,1,POSITION('|' IN h.hours)-1) = '" + str(time[0]) + "' " \
+sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold, time, N : "select concat(" \
+                                                                                           "'{\"id\": \"',b.id,'\", '," \
+                                                                                           "'\"name\": \"',b.name,'\", '," \
+                                                                                           "'\"distance\": ',b.haversine_distance,', ',"  \
+                                                                                           "'\"latitude\": ',b.latitude,', ',"  \
+                                                                                           "'\"longitude\": ',b.longitude,', '," \
+                                                                                           "'\"address\": \"',b.address,'\", '," \
+                                                                                           "'\"neighborhood\": \"',b.neighborhood,'\", '," \
+                                                                                           "'\"stars\": ',b.stars,', '," \
+                                                                                           "'\"reviewcount\": ',b.review_count,', '," \
+                                                                                           "'\"status\": \"'," \
+                                                                                           "         case when substring(h.hours,1,POSITION('|' IN h.hours)-1) = '" + str(time[0]) + "' " \
                                                                                            "           and '" + str(time[1]) + "' between substring(h.hours,POSITION('|' IN h.hours) + 2, 4) " \
                                                                                            "           and substring(h.hours,POSITION('|' IN h.hours) + 7) " \
                                                                                            "         then 'Open' " \
                                                                                            "         else 'Closed' " \
-                                                                                           "       end " \
+                                                                                           "       end ,'\"} ')" \
                                                                                            "from ( " \
                                                                                            "    select haversine(latitude,longitude," + str(coordinates[0]) + ", " + str(coordinates[1]) + ") as haversine_distance, " \
                                                                                            "		   id, " \
@@ -41,14 +42,19 @@ sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold,
                                                                                            "	where 1=1 " \
                                                                                            "	and latitude is not null " \
                                                                                            "	and longitude is not null " \
-                                                                                           "	and user_sentiment > " + str(sentiment_threshold)  + " "\
+                                                                                           "	and user_sentiment >= " + str(sentiment_threshold)  + " "\
                                                                                            ") as b " \
                                                                                            "join yelp_db.category c " \
                                                                                            "on b.id = c.business_id " \
+                                                                                           "join yelp_db.enhanced_category ec " \
+                                                                                           "on ec.primary_category = c.category " \
+                                                                                           "or ec.secondary_category = c.category " \
+                                                                                           "or ec.tertiary_category = c.category " \
                                                                                            "join yelp_db.hours h " \
                                                                                            "on b.id = h.business_id " \
                                                                                            "where 1=1 " \
-                                                                                           "and c.category like '%" + str(category) + "%' " \
+                                                                                           "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
                                                                                            "and substring(h.hours,1,POSITION('|' IN h.hours)-1) = '" + str(time[0]) + "' " \
+                                                                                           "group by b.id " \
                                                                                            "order by b.haversine_distance " \
                                                                                            "limit " + str(N) + "; "
