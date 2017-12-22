@@ -21,6 +21,7 @@ sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold,
                                                                                            "'\"neighborhood\": \"',b.neighborhood,'\", '," \
                                                                                            "'\"stars\": ',b.stars,', '," \
                                                                                            "'\"reviewcount\": ',b.review_count,', '," \
+                                                                                           "'\"user_sentiment\": ',b.user_sentiment,', '," \
                                                                                            "'\"status\": \"'," \
                                                                                            "         case when substring(h.hours,1,POSITION('|' IN h.hours)-1) = '" + str(time[0]) + "' " \
                                                                                            "           and '" + str(time[1]) + "' between substring(h.hours,POSITION('|' IN h.hours) + 2, 4) " \
@@ -37,7 +38,8 @@ sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold,
                                                                                            "		   address, " \
                                                                                            "		   neighborhood, " \
                                                                                            "		   stars, " \
-                                                                                           "		   review_count " \
+                                                                                           "		   review_count, " \
+                                                                                           "           user_sentiment " \
                                                                                            "	from yelp_db.business_user_sentiment " \
                                                                                            "	where 1=1 " \
                                                                                            "	and latitude is not null " \
@@ -58,3 +60,48 @@ sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold,
                                                                                            "group by b.id " \
                                                                                            "order by b.haversine_distance " \
                                                                                            "limit " + str(N) + "; "
+sql_BUSINESS_CLUSTERING_NEIGHBORHOOD = "select concat( "\
+                                                "'{\"business_cnt\":',count(*),', ', "\
+                                                "'\"lat\":',avg(latitude), ', ', "\
+                                                "'\"lng\":',avg(longitude), ', ' , "\
+                                                "'\"neighborhood\": \"',neighborhood, '\", ', "\
+                                                "'\"avg_stars\":',avg(stars), ', ' , "\
+                                                "'\"min_stars\":',min(stars),', ' , "\
+                                                "'\"max_stars\":',max(stars),', ' , "\
+                                                "'\"review_cnt\":',sum(review_count), '} ' "\
+                                        ")  "\
+                                       "from yelp_db.business "\
+                                       "where 1=1 "\
+                                       "and neighborhood is not null "\
+                                       "and neighborhood <> '' "\
+                                       "group by neighborhood; "
+sql_BUSINESS_CLUSTERING_CITY =  "select concat( " \
+                                    "'{\"business_cnt\":',count(*),', ',  " \
+                                    "'\"lat\":',avg(latitude), ', ', " \
+                                    "'\"lng\":',avg(longitude), ', ' , " \
+                                    "'\"city\": \"',city, '\", ', " \
+                                    "'\"avg_stars\":',avg(stars), ', ' , " \
+                                    "'\"min_stars\":',min(stars),', ' , " \
+                                    "'\"max_stars\":',max(stars),', ' , " \
+                                    "'\"review_cnt\":',sum(review_count), '} ' " \
+                                    ") " \
+                                "from yelp_db.business " \
+                                "where 1=1 " \
+                                "and city is not null " \
+                                "and city <> '' " \
+                                "group by city;"
+sql_BUSINESS_CLUSTERING_STATE = "select concat( " \
+                                        "'{\"business_cnt\":',count(*),', ',  " \
+                                        "'\"lat\":',avg(latitude), ', ', " \
+                                        "'\"lng\":',avg(longitude), ', ' , " \
+                                        "'\"state\": \"',state, '\", ', " \
+                                        "'\"avg_stars\":',avg(stars), ', ' , " \
+                                        "'\"min_stars\":',min(stars),', ' , " \
+                                        "'\"max_stars\":',max(stars),', ' , " \
+                                        "'\"review_cnt\":',sum(review_count), '} ' " \
+                                        ") " \
+                                "from yelp_db.business " \
+                                "where 1=1 " \
+                                "and state is not null " \
+                                "and state <> '' " \
+                                "group by state;"

@@ -2,7 +2,6 @@ import src.constants.sql_consts as sc
 from src.db.database_handler import db
 from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
 from src.utils.json_formatter import json_formatter
-import json
 #
 class Core():
     #
@@ -16,12 +15,12 @@ class Core():
     def __init__(self):
         self.db_obj = db('127.0.0.1', 'yelp_db', 'root', '1234')
         self.sa = SentimentAnalyzer()
-        self.jf = json_formatter('suggested_businesses.json')
+        self.jf = json_formatter()
     #
     def get_suggested_businesses(self, business_category, location, time, N):
         """
         The artifact's main callable function, is expected to return top N businesses (self.N).
-        The return type should be in the form of a list of business dictionaries
+        The function creates a json file based on the output of the query results
 
         1) Category: Defines the type of business category the user is looking for
         2) Location: Current user location, expected in the form of a [longitude,latitude]
@@ -44,7 +43,40 @@ class Core():
         self.db_obj.close(conn)
         #
         # Return cursor as JSON format
-        self.jf.suggested_businesses_to_json(business_cursor)
+        self.jf.suggested_businesses_to_json(business_cursor, 'yelp.json')
+    #
+    def get_business_cluster(self, cluster_category="city"):
+        """ Returns hexagonal clustering of businesses as defined by the cluster_category, which must be the following:
+            1) neighborhood
+            2) city
+            3) state
+        """
+        #
+        # Input formatting
+        cluster_category = cluster_category.lower()
+        #
+        # Establish database connection
+        conn = self.db_obj.connect()
+        #
+        if cluster_category == 'neighborhood':
+            sql = sc.sql_BUSINESS_CLUSTERING_NEIGHBORHOOD
+        elif cluster_category == 'city':
+            sql = sc.sql_BUSINESS_CLUSTERING_CITY
+        elif cluster_category == 'state':
+            sql = sc.sql_BUSINESS_CLUSTERING_STATE
+        else:
+            print('Unsupported cluster category')
+            exit()
+        #
+        # Retrieving clusters
+        print('Retrieving business clusters...')
+        cluster_cursor = self.db_obj.select_query(conn, sql)
+        #
+        # Closes database connection
+        self.db_obj.close(conn)
+        #
+        # Return cursor as JSON format
+        self.jf.business_cluster_to_json(cluster_cursor, cluster_category + '_geo.json')
     #
     def populate_table_business_user_sentiment(self):
         """

@@ -23,7 +23,11 @@ from src.visual.visual_handler import visual
 #
 from src.db.core import Core
 c = Core()
+#
 #c.populate_table_business_user_sentiment()
-time = ['Sunday','10:00']
-coordinates = [43.8409,-79.3996]
-c.get_suggested_businesses('Food',coordinates,time,100)
+#
+# time = ['Sunday','10:00']
+# coordinates = [43.8409,-79.3996]
+# c.get_suggested_businesses('Food',coordinates,time,100)
+#
+c.get_business_cluster('state')
