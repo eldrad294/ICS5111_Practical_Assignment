@@ -36,7 +36,10 @@ class SentimentAnalyzer():
         #
         # Logistic Regression Classifier
         X = self.vectorizer.fit_transform(X)
-        return LogisticRegression().fit(X,y)
+        print(self.vectorizer)
+        classifier = LogisticRegression().fit(X,y)
+        print(classifier)
+        return classifier
     #
     def __classify(self, word):
         """ Takes input sample and classifies it as either pos / neu / neg """
@@ -48,7 +51,7 @@ class SentimentAnalyzer():
     def predict(self,sentence):
         """ Public function. Takes a sentence as parameter and assigns a sentiment label to it (pos/neg/neu) """
         pos,neg,neu = 0,0,0
-        neutral_weight = 1 # We introduce a weight to positive and negative scalar counts, to classify as neutral in the case of close pos-neg tie ins
+        neutral_weight = 0 # We introduce a weight to positive and negative scalar counts, to classify as neutral in the case of close pos-neg tie ins
         #
         filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
@@ -61,8 +64,8 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('-----------------\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
-        print(sentence)
+        #print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
+        #print(sentence + '\n-------------------------------')
         if pos-neutral_weight > neg and pos-neutral_weight > neu:
             return "pos"
         elif neg-neutral_weight > pos and neg-neutral_weight > neu:
