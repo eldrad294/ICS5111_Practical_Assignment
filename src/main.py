@@ -6,7 +6,7 @@ from src.visual.visual_handler import visual
 #
 # ----------------------------------------
 #
-#from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
+#from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
 from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 sa = SentimentAnalyzer()
 #sentence = 'Eh. Unimpressed. Poor waitresses look overworked- we had to ask the manager for refills, got my order wrong twice. Breakfast was a little bland (we got the healthy options & apparently that means no flavor) You have many other better and more delicious options nearby. Sorry morning squeeze, work more on your food and service instead of putting all your effort in a trendy vibe.'
@@ -19,12 +19,12 @@ sa = SentimentAnalyzer()
 sentence = 'Bad bad customer service!!  I was willing to give this place a try. Came in to make some purchases and was completely ignored. Employees were busy conversing among themselves. Waited for about 15minutes for them and was told "some one will be with you shortly" so i just walked out. Best if you take business to Healy or AZ guns!'
 pred = sa.predict(sentence)
 print(pred)
-#print(sa.test_set())
+print(sa.test_set())
 #
 # ---------------------------------------
 #
-# from src.db.core import Core
-# c = Core()
+#from src.db.core import Core
+#c = Core()
 #
 #c.populate_table_business_user_sentiment()
 #
@@ -33,3 +33,5 @@ print(pred)
 # c.get_suggested_businesses('Food',coordinates,time,100)
 #
 # c.get_business_cluster('state')
+#
+#c.get_business_user_graph()

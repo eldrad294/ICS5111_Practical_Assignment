@@ -3,7 +3,7 @@ from plotly.offline import plot
 from plotly.graph_objs import *
 import src.constants.string_consts as c
 import src.constants.sql_consts as sql_c
-from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
+from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
 from multiprocessing import Process
 import multiprocessing
 #

@@ -1,6 +1,6 @@
 import src.constants.sql_consts as sc
 from src.db.database_handler import db
-from src.textprocessing.SentimentAnalyzer_NB_NLTK import SentimentAnalyzer
+from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
 from src.utils.json_formatter import json_formatter
 #
 class Core():
@@ -19,7 +19,7 @@ class Core():
     #
     def get_suggested_businesses(self, business_category, location, time, N):
         """
-        The artifact's main callable function, is expected to return top N businesses (self.N).
+        Creates a json file consisting of top N businesses (self.N).
         The function creates a json file based on the output of the query results
 
         1) Category: Defines the type of business category the user is looking for
@@ -46,7 +46,7 @@ class Core():
         self.jf.suggested_businesses_to_json(business_cursor, 'yelp.json')
     #
     def get_business_cluster(self, cluster_category="city"):
-        """ Returns hexagonal clustering of businesses as defined by the cluster_category, which must be the following:
+        """ Creates a json file consisting of hexagonal clustering of businesses as defined by the cluster_category, which must be the following:
             1) neighborhood
             2) city
             3) state
@@ -77,6 +77,38 @@ class Core():
         #
         # Return cursor as JSON format
         self.jf.business_cluster_to_json(cluster_cursor, cluster_category + '_geo.json')
+    #
+    def get_business_user_graph(self, business_category='Food',state='OH', business_name=None):
+        """ Creates a json file consisting of Business Node Clusters with respect to users """
+        #
+        # Input formatting
+        business_category = business_category.lower()
+        state = state.upper()
+        #
+        # Establish database connection
+        conn = self.db_obj.connect()
+        #
+        if business_name is None:
+            sql = sc.sql_BUSINESS_USER_NODES(state, business_category)
+            sql2 = sc.sql_BUSINESS_USER_LINKS(state, business_category)
+        else:
+            pass
+        #
+        # Retrieving business user nodes
+        print('Retrieving business user nodes cursor...')
+        business_user_nodes_cursor = self.db_obj.select_query(conn, sql)
+        #
+        # Retrieving business user links
+        print('Retrieving business user links cursor...')
+        business_user_links_cursor = self.db_obj.select_query(conn, sql2)
+        #
+        # Perform Sentiment Analysis on link reviews
+        #
+        # Closes database connection
+        self.db_obj.close(conn)
+        #
+        # Return cursor as JSON format
+        self.jf.business_user_graph_to_json(business_user_nodes_cursor, business_user_links_cursor, 'graph.json')
     #
     def populate_table_business_user_sentiment(self):
         """
