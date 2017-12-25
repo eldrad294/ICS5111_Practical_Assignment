@@ -1,8 +1,9 @@
 from src.textprocessing.Scoring_Functions import Scoring_Functions
 from src.textprocessing.Word_Corpus import WordCorpus
 from src.textprocessing.Text_Cleanup import TextCleanup
-from sklearn.linear_model import LogisticRegression
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.feature_extraction.text import CountVectorizer
+import numpy as np
 #
 class SentimentAnalyzer():
     #
@@ -13,7 +14,7 @@ class SentimentAnalyzer():
             print(pred)
     """
     def __init__(self):
-        self.vectorizer = TfidfVectorizer()
+        self.cv = CountVectorizer()
         self.__word_corpus = WordCorpus()
         X, y = self.__format_vocab()
         self.__LRclassifier = self.__train_classifier(X, y)
@@ -35,9 +36,10 @@ class SentimentAnalyzer():
         """ Takes the training vocab (consisting of pos,neg,neu) vocab and trains itself """
         #
         # Logistic Regression Classifier
-        X = self.vectorizer.fit_transform(X)
-        print(self.vectorizer)
-        classifier = LogisticRegression().fit(X,y)
+        X = self.cv.fit_transform(X)
+        print(self.cv)
+        X = X.toarray()
+        classifier = LinearDiscriminantAnalysis().fit(X,y)
         print(classifier)
         return classifier
     #
@@ -45,7 +47,7 @@ class SentimentAnalyzer():
         """ Takes input sample and classifies it as either pos / neu / neg """
         #
         # Logistic Regression Classifier
-        word = self.vectorizer.transform([word])
+        word = self.cv.transform([word])
         return self.__LRclassifier.predict(word)
     #
     def predict(self,sentence):
@@ -56,7 +58,7 @@ class SentimentAnalyzer():
         filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
             prediction = self.__classify(word)
-            print(str(word) + " - " + str(prediction))
+            #print(str(word) + " - " + str(prediction))
             if prediction == "pos":
                 pos += 1
             elif prediction == "neg":
@@ -64,8 +66,8 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
-        print(sentence + '\n-------------------------------')
+        #print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
+        #print(sentence + '\n-------------------------------')
         if pos-neutral_weight > neg and pos-neutral_weight > neu:
             return "pos"
         elif neg-neutral_weight > pos and neg-neutral_weight > neu:

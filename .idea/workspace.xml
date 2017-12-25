@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" line="47" mnemonic="3" />
+    <bookmark url="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" line="74" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8987039-6142-4397-af14-4255e419382a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Graph.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LDA.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/results/Classifier Results.xlsx" afterPath="$PROJECT_DIR$/results/Classifier Results.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/Active Data/Train/Negative_Corpus.csv" afterPath="$PROJECT_DIR$/data/Active Data/Train/Negative_Corpus.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/Active Data/Train/Neutral_Corpus.csv" afterPath="$PROJECT_DIR$/data/Active Data/Train/Neutral_Corpus.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/Word Corpus/Negative_Corpus.csv" afterPath="$PROJECT_DIR$/data/Word Corpus/Negative_Corpus.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/Word Corpus/Neutral_Corpus.csv" afterPath="$PROJECT_DIR$/data/Word Corpus/Neutral_Corpus.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/Word Corpus/Positive_Corpus.csv" afterPath="$PROJECT_DIR$/data/Word Corpus/Positive_Corpus.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/constants/sql_consts.py" afterPath="$PROJECT_DIR$/src/constants/sql_consts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/db/core.py" afterPath="$PROJECT_DIR$/src/db/core.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/db/query/force_graph.sql" afterPath="$PROJECT_DIR$/src/db/query/force_graph.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.py" afterPath="$PROJECT_DIR$/src/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/json_formatter.py" afterPath="$PROJECT_DIR$/src/utils/json_formatter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/visual/bar_module.py" afterPath="$PROJECT_DIR$/src/visual/bar_module.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB_NLTK.py" afterPath="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py" afterPath="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" afterPath="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" />
     </list>
     <ignored path="ICS5111_Practical_Assignment.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,9 +37,11 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-              <folding />
+            <state relative-caret-position="323">
+              <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,7 +49,7 @@
       <file leaf-file-name="bar_module.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/visual/bar_module.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-680">
+            <state relative-caret-position="17">
               <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
               <folding />
             </state>
@@ -69,21 +68,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Text_Cleanup.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Text_Cleanup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+            <state relative-caret-position="268">
+              <caret line="46" column="54" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SentimentAnalyzer_NB.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SentimentAnalyzer_NB.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-663">
-              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+            <state relative-caret-position="289">
+              <caret line="43" column="45" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -94,8 +93,8 @@
       <file leaf-file-name="SentimentAnalyzer_LogisticRegression.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+            <state relative-caret-position="200">
+              <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -147,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/utils/Templates/geo.json" />
         <option value="$PROJECT_DIR$/src/neighborhood_geo.json" />
         <option value="$PROJECT_DIR$/src/state_geo.json" />
-        <option value="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py" />
         <option value="$PROJECT_DIR$/src/Graph.ipynb" />
         <option value="$PROJECT_DIR$/src/db/query/force_graph.sql" />
         <option value="$PROJECT_DIR$/src/graph.json" />
@@ -156,16 +154,18 @@
         <option value="$PROJECT_DIR$/src/db/core.py" />
         <option value="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB_NLTK.py" />
         <option value="$PROJECT_DIR$/src/visual/bar_module.py" />
-        <option value="$PROJECT_DIR$/src/main.py" />
+        <option value="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LDA.py" />
         <option value="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" />
+        <option value="$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py" />
+        <option value="$PROJECT_DIR$/src/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1000" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -320,16 +320,17 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\ICS5111_Practical_Assignment\src\textprocessing" />
+      <recent name="D:\Projects\ICS5111_Practical_Assignment\src" />
+      <recent name="D:\Projects\ICS5111_Practical_Assignment\src\db" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\ICS5111_Practical_Assignment\src\utils\Generated\geo" />
       <recent name="D:\Projects\ICS5111_Practical_Assignment\src\utils\Generated" />
       <recent name="D:\Projects\ICS5111_Practical_Assignment\src\db\query" />
       <recent name="D:\Projects\ICS5111_Practical_Assignment\src\db" />
       <recent name="D:\Projects\ICS5111_Practical_Assignment\src\utils" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\ICS5111_Practical_Assignment\src" />
-      <recent name="D:\Projects\ICS5111_Practical_Assignment\src\db" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -519,16 +520,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23688394" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.117492095" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2710496" sideWeight="0.1399046" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49367756" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42145178" sideWeight="0.14963119" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2710496" sideWeight="0.8600954" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42145178" sideWeight="0.8503688" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -538,6 +538,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49367756" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -573,19 +574,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Anaconda/Lib/multiprocessing/context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/queue_to_list.py" />
     <entry file="file://C:/Anaconda/Lib/site-packages/plotly/graph_objs/graph_objs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -807,23 +800,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-136">
           <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/graph.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="262" selection-start-line="1" selection-start-column="262" selection-end-line="1" selection-end-column="262" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/graph.json" />
     <entry file="file://$PROJECT_DIR$/src/utils/json_formatter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="451">
           <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -831,7 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
           <caret line="140" column="88" selection-start-line="140" selection-start-column="88" selection-end-line="140" selection-end-column="88" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -839,7 +822,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -847,23 +829,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
           <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py">
+    <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/discriminant_analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#66#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="215">
+          <caret line="428" column="0" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/visual/bar_module.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-680">
+        <state relative-caret-position="17">
           <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
           <folding />
         </state>
@@ -879,29 +864,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.py">
+    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_LogisticRegression.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-          <folding />
+        <state relative-caret-position="200">
+          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#66#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
+    <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-663">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        <state relative-caret-position="323">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
           <folding>
-            <element signature="e#0#46#0" expanded="true" />
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+        <state relative-caret-position="268">
+          <caret line="46" column="54" selection-start-line="46" selection-start-column="54" selection-end-line="46" selection-end-column="54" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="43" column="45" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

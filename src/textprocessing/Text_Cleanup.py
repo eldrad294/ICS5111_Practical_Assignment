@@ -17,6 +17,9 @@ class TextCleanup():
         # Remove numerics
         sentence = re.sub(r'\d+', '', sentence)
         #
+        # Puts emphasis on first sentence in review
+        sentence = str(self._get_first_sentence(sentence,8)) + ' ' + sentence
+        #
         # Convert to lowercase
         sentence = sentence.lower()
         #
@@ -45,6 +48,30 @@ class TextCleanup():
         #print(filtered_words)
         #print(tagged_sentence)
         return filtered_words
+    #
+    def _get_first_sentence(self, sentence, n=0):
+        """ Multiplies the first sentence by n times to put more emphasis on the first sentence """
+        punctuation_list = ['.','!',':']
+        split_sentence = sentence.split(' ')
+        exit_flag = False
+        #
+        # Checks for sentences without punctuation
+        for punctuation in punctuation_list:
+            if punctuation in sentence:
+                exit_flag = True
+                break
+        #
+        if exit_flag is False:
+            return " ".join(split_sentence[:10])
+        #
+        for i in range(len(split_sentence)):
+            for punctuation in punctuation_list:
+                if punctuation in split_sentence[i]:
+                    first_sentence = ""
+                    for j in range(n):
+                        first_sentence += " ".join(split_sentence[:i+1])
+                    return first_sentence
+
     #
     def __word_grams(self, sentence, N=1):
         s = []
