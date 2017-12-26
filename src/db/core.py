@@ -129,7 +129,7 @@ class Core():
         # Iterate over retrieved records and perform sentiment analysis
         counter = 0
         review_dict = dict()
-        n_step = 100
+        n_step = 10000
         print('Commencing review sentiment analysis...')
         for id, text in review_cursor:
             #

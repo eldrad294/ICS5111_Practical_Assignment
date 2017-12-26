@@ -56,7 +56,7 @@ class SentimentAnalyzer():
         filtered_words =self.text_cleanup.clean_sentence(sentence)
         for word in filtered_words:
             prediction = self.__classify(word)
-            print(str(word) + " - " + str(prediction))
+            #print(str(word) + " - " + str(prediction))
             if prediction == "pos":
                 pos += 1
             elif prediction == "neg":

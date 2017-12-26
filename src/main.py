@@ -9,6 +9,7 @@ from src.visual.visual_handler import visual
 #from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
 from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 #from src.textprocessing.SentimentAnalyzer_LDA import SentimentAnalyzer
+#from src.textprocessing.SentimentAnalyzer_VADER import SentimentAnalyzer
 sa = SentimentAnalyzer()
 #sentence = 'Eh. Unimpressed. Poor waitresses look overworked- we had to ask the manager for refills, got my order wrong twice. Breakfast was a little bland (we got the healthy options & apparently that means no flavor) You have many other better and more delicious options nearby. Sorry morning squeeze, work more on your food and service instead of putting all your effort in a trendy vibe.'
 #sentence = 'Pizza here made my night... Good people and great pizza. They can do anything you ask with a great attitude!'
@@ -25,7 +26,7 @@ sa = SentimentAnalyzer()
 sentence = "Very cool restaurant my husband and I really liked the decor especially the leather couches we had the strawberry and Brie the fried chicken and ribs really good food I will be going back to try something else"
 pred = sa.predict(sentence)
 print(pred)
-#print(sa.test_set())
+print(sa.test_set())
 #
 # ---------------------------------------
 #
