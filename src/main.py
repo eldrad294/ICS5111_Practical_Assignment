@@ -7,10 +7,10 @@ from src.visual.visual_handler import visual
 # ----------------------------------------
 #
 #from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
-from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
+#from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 #from src.textprocessing.SentimentAnalyzer_LDA import SentimentAnalyzer
 #from src.textprocessing.SentimentAnalyzer_VADER import SentimentAnalyzer
-sa = SentimentAnalyzer()
+#sa = SentimentAnalyzer()
 #sentence = 'Eh. Unimpressed. Poor waitresses look overworked- we had to ask the manager for refills, got my order wrong twice. Breakfast was a little bland (we got the healthy options & apparently that means no flavor) You have many other better and more delicious options nearby. Sorry morning squeeze, work more on your food and service instead of putting all your effort in a trendy vibe.'
 #sentence = 'Pizza here made my night... Good people and great pizza. They can do anything you ask with a great attitude!'
 #sentence = "Super good food! My friends and I ordered 2 lbs of shrimp, 2 lbs of crab legs, 2 Cajun fries, sweet potato fries, calamari, and fried catfish! We ate it allllll up. My only concern was that the crabs were a bit difficult to crack but then again I'm used to cracking the Alaskan crab legs. But other than the difficult cracking, the mix of all the seasonings was just a great fusion of flavors to really individualize their seafood from anything I've ever tried. And it was not primetime when we went so service was pretty fast! Hope they're on top of their game when it is busy!"
@@ -23,17 +23,17 @@ sa = SentimentAnalyzer()
 #sentence = "An absolute favourite of mine....I don't understand why this place isn't getting better reviews. I love love Thai food and Pi Toms does it better than any place I have ever been to, hands down. I usually order Pi Tom's own version of Pad Thai....they also have a 'Traditional' version too but I prefer the restaurants own and it is delicious. The ingredients for both dishes are practically the same but Pi Toms dish uses a lighter, more subtle sauce (not ketchup like most traditional pad thai dishes) leaving the flavours of the other ingredients to be fully appreciated. They give pretty decent portion sizes....I rarely finish the entire thing but makes for a great lunch the next day... The mango salad here is to die for! Really fresh ingredients makes this salad extra special and they use a delicious sweet dressing. There are many Pi Toms around Toronto but this one is my personal favourite...its on a nice, fairly quiet street just off Yonge and Wellesley , and has a cute patio complete with romantic lighting, perfect for a dinner date or a relaxing night with a friend. Great service, great place, even better food... what more can you ask for?.."
 #sentence = "Very unimpressed by their pad Thai.. one of the worst I have had.. lacks flavor and beef tastes like rubber.. I ordered though UberEATS so I don't know if in store it's different but won't be returning for sure!"
 #sentence = "Very disappointed! Got the all you can eat crab legs for $50 with my sister in law and they tasted dried out like they were someone else's reheated left overs. Then both of us ended up with very upset stomachs about 30 mins after. So basically we paid $60 each to get diarrhea. Not happy!"
-sentence = "Very cool restaurant my husband and I really liked the decor especially the leather couches we had the strawberry and Brie the fried chicken and ribs really good food I will be going back to try something else"
-pred = sa.predict(sentence)
-print(pred)
-print(sa.test_set())
+# sentence = "Not good. My masseuse applied zero pressure. Not worth spending your hard earned cash on."
+# pred = sa.predict(sentence)
+# print(pred)
+# print(sa.test_set())
 #
 # ---------------------------------------
 #
-#from src.db.core import Core
-#c = Core()
-#
-#c.populate_table_business_user_sentiment()
+from src.db.core import Core
+c = Core()
+
+c.populate_table_business_user_sentiment()
 #
 # time = ['Sunday','10:00']
 # coordinates = [43.8409,-79.3996]

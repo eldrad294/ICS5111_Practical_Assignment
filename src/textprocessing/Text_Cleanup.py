@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk.tag import pos_tag
 from nltk.util import ngrams
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
 #
 class TextCleanup():
     #
@@ -17,14 +18,17 @@ class TextCleanup():
         # Remove numerics
         sentence = re.sub(r'\d+', '', sentence)
         #
-        # Puts emphasis on first sentence in review
-        sentence = str(self._get_first_sentence(sentence,8)) + ' ' + sentence
-        #
         # Convert to lowercase
         sentence = sentence.lower()
         #
+        # Puts emphasis on first sentence in review
+        sentence = str(self._get_first_sentence(sentence,8)) + ' ' + sentence
+        #
         # Tokenize (split into unigrams) for sentence cleanup
         sentence = self.__word_grams(sentence,1)
+        #
+        # Replace negations with antonyms
+        #sentence = self.replace_negations(sentence)
         #
         # Remove stop words
         filtered_words = [word for word in sentence if word not in stopwords.words('english')]
@@ -80,3 +84,29 @@ class TextCleanup():
         for ngram in ngrams(sentence, N):
             s.append(' '.join(str(i) for i in ngram))
         return s
+    #
+    def replace(self, word, pos=None):
+        antonyms = set()
+        for syn in wordnet.synsets(word, pos=pos):
+            for lemma in syn.lemmas():
+                for antonym in lemma.antonyms():
+                    antonyms.add(antonym.name())
+        if len(antonyms) == 1:
+            return antonyms.pop()
+        else:
+            return None
+    #
+    def replace_negations(self, sentence):
+        i, l = 0, len(sentence)
+        words = []
+        while i < l:
+            word = sentence[i]
+            if word == 'not' and i+1 < l:
+                ant = self.replace(sentence[i+1])
+                if ant:
+                    words.append(ant)
+                    i+=2
+                    continue
+            words.append(word)
+            i += 1
+        return ' '.join(words)
