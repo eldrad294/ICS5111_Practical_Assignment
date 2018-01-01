@@ -9,7 +9,7 @@ sql_REVIEWS = lambda year : 'SELECT text FROM yelp_db.review where date like \''
 sql_YELP_ELITE_OVER_TIME = 'SELECT count(e.user_id), e.year from yelp_db.elite_years e group by e.year;'
 #
 # Other SQLs
-sql_REVIEW_BUSINESS_AND_TEXT = 'select business_id, text from yelp_db.review where useful > 0;'
+sql_REVIEW_BUSINESS_AND_TEXT = lambda state : 'select business_id, text from yelp_db.review r join yelp_db.business b on b.id = r.business_id where 1=1 and r.useful > 0 and b.state = \'' + str(state) + '\';'
 sql_UPDATE_BUSINESS =  lambda sentiment_vector, id : 'update yelp_db.business_user_sentiment set user_sentiment = ' + str(sentiment_vector) + ' where id = \'' + str(id) + '\';'
 sql_BUSINESS_USER_SENTIMENT = lambda category, coordinates, sentiment_threshold, time, N : "select concat(" \
                                                                                            "'{\"id\": \"',b.id,'\", '," \
@@ -105,44 +105,67 @@ sql_BUSINESS_CLUSTERING_STATE = "select concat( " \
                                 "and state is not null " \
                                 "and state <> '' " \
                                 "group by state;"
-sql_BUSINESS_USER_NODES = lambda state, category : "select concat( " \
-                            "	   '{\"name\": \"',b.name,'\" ,', " \
-                            "	   '\"id\": \"',b.id,'\" ,', " \
-                            "       '\"rvCnt\": ',b.review_count,' ,', " \
-                            "       '\"type\": \"','green','\"}' " \
-                            "       ) " \
-                            "from yelp_db.business b " \
-                            "join yelp_db.category c " \
-                            "on b.id = c.business_id " \
-                            "join yelp_db.enhanced_category ec " \
-                            "on ec.primary_category = c.category " \
-                            "or ec.secondary_category = c.category " \
-                            "or ec.tertiary_category = c.category " \
-                            "where 1=1  " \
-                            "and b.state = '" + str(state) + "' " \
-                            "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
-                            "union " \
-                            "select concat( " \
-                            "	   '{\"name\": \"',u.name,'\" ,', " \
-                            "	   '\"id\": \"',u.id,'\" ,', " \
-                            "       '\"rvCnt\": ',u.review_count,' ,', " \
-                            "       '\"type\": \"','grey','\"}' " \
-                            "       ) " \
-                            "from yelp_db.user u LIMIT 10;"
-sql_BUSINESS_USER_LINKS = lambda state, category : "SELECT  b.id, " \
-                                                    "       u.id, " \
-                                                    "       r.text " \
-                                                    "FROM yelp_db.review r " \
+sql_BUSINESS_USER_NODES = lambda state, category : "(select concat( " \
+                                                    "	   '{\"name\": \"',b.name,'\" ,',  " \
+                                                    "	   '\"id\": \"',b.id,'\" ,', " \
+                                                    "      '\"rvCnt\": ',b.review_count,' ,', " \
+                                                    "      '\"type\": \"','green','\"}' " \
+                                                    "      ) " \
+                                                    "from yelp_db.review r " \
                                                     "join yelp_db.business b " \
                                                     "on r.business_id = b.id " \
+                                                    "join yelp_db.user u " \
+                                                    "on r.user_id = u.id " \
                                                     "join yelp_db.category c " \
                                                     "on b.id = c.business_id " \
                                                     "join yelp_db.enhanced_category ec " \
                                                     "on ec.primary_category = c.category " \
                                                     "or ec.secondary_category = c.category " \
                                                     "or ec.tertiary_category = c.category " \
-                                                    "join yelp_db.user u " \
-                                                    "on r.user_id = u.id " \
                                                     "where 1=1 " \
                                                     "and b.state = '" + str(state) + "' " \
-                                                    "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%';"
+                                                    "and r.useful > 0 " \
+                                                    "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
+                                                    "group by b.id) " \
+                                                    "union " \
+                                                    "(select concat( " \
+                                                    "	   '{\"name\": \"',u.name,'\" ,', " \
+                                                    "	   '\"id\": \"',u.id,'\" ,', " \
+                                                    "      '\"rvCnt\": ',u.review_count,' ,', " \
+                                                    "      '\"type\": \"','grey','\"}' " \
+                                                    "      ) " \
+                                                    "from yelp_db.review r " \
+                                                    "join yelp_db.business b " \
+                                                    "on r.business_id = b.id " \
+                                                    "join yelp_db.user u " \
+                                                    "on r.user_id = u.id " \
+                                                    "join yelp_db.category c " \
+                                                    "on b.id = c.business_id " \
+                                                    "join yelp_db.enhanced_category ec " \
+                                                    "on ec.primary_category = c.category " \
+                                                    "or ec.secondary_category = c.category " \
+                                                    "or ec.tertiary_category = c.category " \
+                                                    "where 1=1 " \
+                                                    "and b.state = '" + str(state) + "' " \
+                                                    "and r.useful > 0 " \
+                                                    "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
+                                                    "group by u.id); "
+sql_BUSINESS_USER_LINKS = lambda state, category : "select b.id as business_id, " \
+                                                    "	   u.id as user_id, " \
+                                                    "       r.text as review_text " \
+                                                    "from yelp_db.review r " \
+                                                    "join yelp_db.business b " \
+                                                    "on r.business_id = b.id " \
+                                                    "join yelp_db.user u " \
+                                                    "on r.user_id = u.id " \
+                                                    "join yelp_db.category c " \
+                                                    "on b.id = c.business_id " \
+                                                    "join yelp_db.enhanced_category ec " \
+                                                    "on ec.primary_category = c.category " \
+                                                    "or ec.secondary_category = c.category " \
+                                                    "or ec.tertiary_category = c.category " \
+                                                    "where 1=1 " \
+                                                    "and b.state = '" + str(state) + "' " \
+                                                    "and r.useful > 0 " \
+                                                    "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
+                                                    "group by b.id, u.id; "

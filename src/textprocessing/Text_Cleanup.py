@@ -18,11 +18,14 @@ class TextCleanup():
         # Remove numerics
         sentence = re.sub(r'\d+', '', sentence)
         #
+        # Remove quotes
+        sentence = sentence.replace("\"", "")
+        #
         # Convert to lowercase
         sentence = sentence.lower()
         #
         # Puts emphasis on first sentence in review
-        sentence = str(self._get_first_sentence(sentence,8)) + ' ' + sentence
+        sentence = str(self._get_first_sentence(sentence,4)) + ' ' + sentence
         #
         # Tokenize (split into unigrams) for sentence cleanup
         sentence = self.__word_grams(sentence,1)

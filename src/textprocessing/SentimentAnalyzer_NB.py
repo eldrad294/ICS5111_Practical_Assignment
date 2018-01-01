@@ -69,8 +69,6 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
-        print(sentence + '\n-------------------------------')
         if pos-neutral_weight > neg and pos-neutral_weight > neu:
             return "pos"
         elif neg-neutral_weight > pos and neg-neutral_weight > neu:

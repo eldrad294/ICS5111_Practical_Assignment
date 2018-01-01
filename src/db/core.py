@@ -1,6 +1,6 @@
 import src.constants.sql_consts as sc
 from src.db.database_handler import db
-from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
+from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 from src.utils.json_formatter import json_formatter
 #
 class Core():
@@ -102,34 +102,38 @@ class Core():
         print('Retrieving business user links cursor...')
         business_user_links_cursor = self.db_obj.select_query(conn, sql2)
         #
-        # Perform Sentiment Analysis on link reviews
-        #
         # Closes database connection
         self.db_obj.close(conn)
         #
         # Return cursor as JSON format
         self.jf.business_user_graph_to_json(business_user_nodes_cursor, business_user_links_cursor, 'graph.json')
+        #
+        print('JSON file successfully created!')
     #
-    def populate_table_business_user_sentiment(self):
+    def populate_table_business_user_sentiment(self, state):
         """
         This method carries out sentiment analysis on user reviews per business, and calculates a sentiment value
         vector to assign to a particular business. It then goes over every business which had sentiment analysis
         performed on it and updates table BUSINESS_USER_SENTIMENT
         """
+        print("Started sentiment analysis on state " + str(state))
         #
         # Establish database connection
         conn = self.db_obj.connect()
         #
-        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT
+        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT(state.upper())
         #
         # Retrieve businesses
         print('Retrieving Yelp reviews...')
         review_cursor = self.db_obj.select_query(conn, sql)
         #
+        # Closes database connection
+        self.db_obj.close(conn)
+        #
         # Iterate over retrieved records and perform sentiment analysis
         counter = 0
         review_dict = dict()
-        n_step = 10000
+        n_step = 1000
         print('Commencing review sentiment analysis...')
         for id, text in review_cursor:
             #
@@ -142,7 +146,7 @@ class Core():
             else:
                 pass # We do not update sentiment_vector for neutral reviews
             #
-            if text in review_dict:
+            if id in review_dict:
                 review_dict[id] += sentiment_vector
             else:
                 review_dict[id] = 0 + sentiment_vector
@@ -153,6 +157,10 @@ class Core():
         #
         counter = 0
         print('Commencing business updates...')
+        #
+        # Establish database connection
+        conn = self.db_obj.connect()
+        #
         for id, sentiment_vector in review_dict.items():
             #
             sql = sc.sql_UPDATE_BUSINESS(sentiment_vector, id)
@@ -165,3 +173,5 @@ class Core():
         #
         # Closes database connection
         self.db_obj.close(conn)
+        #
+        print('Sentiment Analysis performed on ' + state + " done!!")

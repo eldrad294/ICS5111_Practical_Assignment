@@ -23,7 +23,8 @@ from src.visual.visual_handler import visual
 #sentence = "An absolute favourite of mine....I don't understand why this place isn't getting better reviews. I love love Thai food and Pi Toms does it better than any place I have ever been to, hands down. I usually order Pi Tom's own version of Pad Thai....they also have a 'Traditional' version too but I prefer the restaurants own and it is delicious. The ingredients for both dishes are practically the same but Pi Toms dish uses a lighter, more subtle sauce (not ketchup like most traditional pad thai dishes) leaving the flavours of the other ingredients to be fully appreciated. They give pretty decent portion sizes....I rarely finish the entire thing but makes for a great lunch the next day... The mango salad here is to die for! Really fresh ingredients makes this salad extra special and they use a delicious sweet dressing. There are many Pi Toms around Toronto but this one is my personal favourite...its on a nice, fairly quiet street just off Yonge and Wellesley , and has a cute patio complete with romantic lighting, perfect for a dinner date or a relaxing night with a friend. Great service, great place, even better food... what more can you ask for?.."
 #sentence = "Very unimpressed by their pad Thai.. one of the worst I have had.. lacks flavor and beef tastes like rubber.. I ordered though UberEATS so I don't know if in store it's different but won't be returning for sure!"
 #sentence = "Very disappointed! Got the all you can eat crab legs for $50 with my sister in law and they tasted dried out like they were someone else's reheated left overs. Then both of us ended up with very upset stomachs about 30 mins after. So basically we paid $60 each to get diarrhea. Not happy!"
-# sentence = "Not good. My masseuse applied zero pressure. Not worth spending your hard earned cash on."
+#sentence = "Not good. My masseuse applied zero pressure. Not worth spending your hard earned cash on."
+#sentence = "My expectations were low-I expected good, not great food, reasonably priced.  I made a point of asking for and ordering gluten free foods.  Well the lentil soup was virtually flavorless.  The nachos were nuked in a microwave, half the chips were the crumbs from the bottom of the bag, and the salsa was not spicy but tasted more like marinara.   the \"gluten free\" main course arrived with wheat rather than rice noodles.  I will never return."
 # pred = sa.predict(sentence)
 # print(pred)
 # print(sa.test_set())
@@ -32,8 +33,9 @@ from src.visual.visual_handler import visual
 #
 from src.db.core import Core
 c = Core()
-
-c.populate_table_business_user_sentiment()
+state = 'HLD'
+business_category = 'Food'
+# c.populate_table_business_user_sentiment(state=state)
 #
 # time = ['Sunday','10:00']
 # coordinates = [43.8409,-79.3996]
@@ -41,4 +43,4 @@ c.populate_table_business_user_sentiment()
 #
 # c.get_business_cluster('state')
 #
-#c.get_business_user_graph()
+c.get_business_user_graph(state=state,business_category=business_category)

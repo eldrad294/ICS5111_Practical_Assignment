@@ -36,9 +36,9 @@ class SentimentAnalyzer():
         #
         # Logistic Regression Classifier
         X = self.vectorizer.fit_transform(X)
-        print(self.vectorizer)
+        #print(self.vectorizer)
         classifier = LogisticRegression().fit(X,y)
-        print(classifier)
+        #print(classifier)
         return classifier
     #
     def __classify(self, word):
@@ -64,8 +64,8 @@ class SentimentAnalyzer():
             elif prediction == "neu":
                 neu += 1
         #
-        print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
-        print(sentence + '\n-------------------------------')
+        #print('\nPositive Sentiment: ' + str(pos) + ' \nNegative Sentiment: ' + str(neg) + ' \nNeutral Sentiment: ' + str(neu))
+        #print(sentence + '\n-------------------------------')
         if pos-neutral_weight > neg and pos-neutral_weight > neu:
             return "pos"
         elif neg-neutral_weight > pos and neg-neutral_weight > neu:
