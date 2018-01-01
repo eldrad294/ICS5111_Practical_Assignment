@@ -18,9 +18,6 @@ class TextCleanup():
         # Remove numerics
         sentence = re.sub(r'\d+', '', sentence)
         #
-        # Remove quotes
-        sentence = sentence.replace("\"", "")
-        #
         # Convert to lowercase
         sentence = sentence.lower()
         #

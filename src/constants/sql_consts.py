@@ -152,7 +152,7 @@ sql_BUSINESS_USER_NODES = lambda state, category : "(select concat( " \
                                                     "group by u.id); "
 sql_BUSINESS_USER_LINKS = lambda state, category : "select b.id as business_id, " \
                                                     "	   u.id as user_id, " \
-                                                    "       r.text as review_text " \
+                                                    "      r.text as review_text " \
                                                     "from yelp_db.review r " \
                                                     "join yelp_db.business b " \
                                                     "on r.business_id = b.id " \

@@ -60,9 +60,11 @@ class json_formatter():
                 exit(0)
             #
             if i == 0:
-                json_string += "{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"" + str(tuple[2]) + "\"}"
+                json_string += "{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"" + str(tuple[2]).replace('"','') + "\"}"
+                #json_string += "{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"review\"}"
             else:
-                json_string += ",{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"" + str(tuple[2]) + "\"}"
+                json_string += ",{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"" + str(tuple[2]).replace('"','') + "\"}"
+                #json_string += ",{\"source\": \"" + str(tuple[0]) + "\", \"target\": \"" + str(tuple[1]) + "\", \"type\": \"" + str(color) + "\", \"rv\": \"review\"}"
             #
             if i % n_step == 0:
                 print('Sentiment analysis on ' + str(i) + 'th review...')
