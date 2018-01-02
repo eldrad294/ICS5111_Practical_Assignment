@@ -2,6 +2,7 @@ import src.constants.sql_consts as sc
 from src.db.database_handler import db
 from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 from src.utils.json_formatter import json_formatter
+from src.utils.word_bucket import Word_Bucket
 #
 class Core():
     #
@@ -16,6 +17,7 @@ class Core():
         self.db_obj = db('127.0.0.1', 'yelp_db', 'root', '1234')
         self.sa = SentimentAnalyzer()
         self.jf = json_formatter()
+        self.wb = Word_Bucket()
     #
     def get_suggested_businesses(self, business_category, location, time, N):
         """
@@ -175,3 +177,31 @@ class Core():
         self.db_obj.close(conn)
         #
         print('Sentiment Analysis performed on ' + state + " done!!")
+    #
+    def get_top_N_trending_words(self, user_id, N=10):
+        """ Returns the top N trending words used in either reviews and/or tips """
+        #
+        print('Returning all text pertaining to user: ' + str(user_id))
+        #
+        # Establish database connection
+        conn = self.db_obj.connect()
+        #
+        sql = sc.sql_REVIEW_TEXT_PER_USER(user_id)
+        #
+        sql_cursor = self.db_obj.select_query(conn, sql)
+        #
+        # Closes database connection
+        self.db_obj.close(conn)
+        #
+        agglomorated_text = ''
+        for i, tuple in enumerate(sql_cursor):
+            for text in tuple:
+                agglomorated_text += text + " "
+        #
+        keys, values = self.wb.get_top_N_frequent_words(agglomorated_text, N)
+        #
+        print('User ID: ' + user_id)
+        for i in range(len(keys)):
+            print(str(keys[i]) + " -> " + str(values[i]))
+        print(",".join(keys))
+        print('---------------------------')

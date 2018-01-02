@@ -169,3 +169,12 @@ sql_BUSINESS_USER_LINKS = lambda state, category : "select b.id as business_id, 
                                                     "and r.useful > 0 " \
                                                     "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
                                                     "group by b.id, u.id; "
+sql_REVIEW_TEXT_PER_USER = lambda user_id : "(select text " \
+                                            "from yelp_db.review r " \
+                                            "where 1=1 " \
+                                            "and user_id = '" + str(user_id) + "') " \
+                                            "union " \
+                                            "(select text " \
+                                            "from yelp_db.tip " \
+                                            "where 1=1 " \
+                                            "and user_id = '" + str(user_id) + "'); "

@@ -198,3 +198,25 @@ from (
 join yelp_db.business b
 on b.id = un.business_id
 order by date desc;
+#
+/*
+Retrieves top 30 users based on highest amount
+of reviews and/or tips
+*/
+select sum(uni.rev_count) as tot_count,
+	   uni.user_id
+from (
+	(select count(*) as rev_count,
+		   r.user_id as user_id
+	from yelp_db.review r
+    group by user_id)
+	union
+	(select count(*) as rev_count,
+		   t.user_id as user_id
+	from yelp_db.tip t
+    group by user_id)
+) uni
+group by uni.user_id
+order by tot_count desc
+limit 50;
+
