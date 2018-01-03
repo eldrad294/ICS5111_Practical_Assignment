@@ -200,8 +200,49 @@ class Core():
         #
         keys, values = self.wb.get_top_N_frequent_words(agglomorated_text, N)
         #
-        print('User ID: ' + user_id)
+        top_N_words = ""
         for i in range(len(keys)):
-            print(str(keys[i]) + " -> " + str(values[i]))
-        print(",".join(keys))
-        print('---------------------------')
+            top_N_words += str(keys[i]) + ","
+        return top_N_words
+    #
+    def data_mine_top_N_users(self, N=500, top_trending_word_count=20):
+        """ Constructs 2 JSON files for the top N users, one consiting of user estimated living coordinates, and
+            another with a users trace history """
+        #
+        print("Started data mining task on top " + str(N) + " users..")
+        #
+        # Establish database connection
+        conn = self.db_obj.connect()
+        #
+        sql = sc.sql_RETRIEVE_TOP_N_USERS(N)
+        sql_cursor = self.db_obj.select_query(conn, sql)
+        print('Retrieved top ' + str(N) + ' users..')
+        #
+        user_datamined_data, top_N_user_words, user_history = [],[], []
+        for i, tuple in enumerate(sql_cursor):
+            for user_id in tuple:
+                #
+                print('Commencing datamining on user: ' + str(user_id))
+                sql = sc.sql_USER_DATA_MINE(user_id)
+                sql_cursor2 = self.db_obj.select_query(conn, sql)
+                user_datamined_data.append(sql_cursor2)
+                #
+                # Returns top N trending words by user
+                print('Retrieving top trending words..')
+                top_N_user_words.append(self.get_top_N_trending_words(user_id, top_trending_word_count))
+                #
+                print('Retrieving user history')
+                sql = sc.sql_USER_HISTORY(user_id)
+                sql_cursor2 = self.db_obj.select_query(conn, sql)
+                user_history.append(sql_cursor2)
+        #
+        # Closes database connection
+        self.db_obj.close(conn)
+        #
+        print('Data Mining Task Complete, commencing JSON serializing')
+        #
+        # Pass lists to be converted into JSON files
+        self.jf.user_data_mined_to_json(user_datamined_data, top_N_user_words, 'user_datamined.json')
+        self.jf.user_history_to_json(user_history, 'user_history.json')
+        #
+        print('JSON files successfully created!')

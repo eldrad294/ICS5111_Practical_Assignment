@@ -175,9 +175,12 @@ Retrieve a history of where a user has been,
 through reviews and tips left by the user at
 different business locations.
 */
-select b.state,
+select un.user_id,
+	   b.state,
 	   b.city,
        b.neighborhood,
+       b.latitude,
+       b.longitude,
        b.address,
        b.name,
        un.date
@@ -200,11 +203,10 @@ on b.id = un.business_id
 order by date desc;
 #
 /*
-Retrieves top 30 users based on highest amount
+Retrieves top 500 users based on highest amount
 of reviews and/or tips
 */
-select sum(uni.rev_count) as tot_count,
-	   uni.user_id
+select uni.user_id
 from (
 	(select count(*) as rev_count,
 		   r.user_id as user_id
@@ -217,6 +219,5 @@ from (
     group by user_id)
 ) uni
 group by uni.user_id
-order by tot_count desc
-limit 50;
-
+order by sum(uni.rev_count) desc
+limit 500;

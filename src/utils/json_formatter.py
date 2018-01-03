@@ -73,6 +73,48 @@ class json_formatter():
         #
         self.save_json_to_path(json_string, path)
     #
+    def user_data_mined_to_json(self, user_datamined_data, top_N_user_words, path):
+        """ Takes the sql cursor and formats it into a json string and saves it. """
+        #
+        json_string = '{"users": ['
+        for i, tuple in enumerate(user_datamined_data):
+            if i == 0:
+                json_string += '{"user_id":"' + str(tuple[0][0]) + '","name":"' + str(tuple[0][1]) + '", "latitude":' + str(
+                    tuple[0][2]) + ',"longitude":' + str(tuple[0][3]) + ',"financial_status":"' + str(
+                    tuple[0][4]) + '", "city":"' + str(tuple[0][5]) + '", "personality_trait_dubbed_by_reviewers":"' + str(
+                    tuple[0][6]) + '","fans":' + str(tuple[0][7]) + ',"review_count":' + str(
+                    tuple[0][8]) + ',"review_rating":' + str(tuple[0][9]) + ',"trending_compliments":"' + str(
+                    tuple[0][10]) + '","top_20_words":"' + str(top_N_user_words[i]) + '"}'
+            else:
+                json_string += ',{"user_id":"' + str(tuple[0][0]) + '","name":"' + str(tuple[0][1]) + '", "latitude":' + str(
+                    tuple[0][2]) + ',"longitude":' + str(tuple[0][3]) + ',"financial_status":"' + str(
+                    tuple[0][4]) + '", "city":"' + str(tuple[0][5]) + '", "personality_trait_dubbed_by_reviewers":"' + str(
+                    tuple[0][6]) + '","fans":' + str(tuple[0][7]) + ',"review_count":' + str(
+                    tuple[0][8]) + ',"review_rating":' + str(tuple[0][9]) + ',"trending_compliments":"' + str(
+                    tuple[0][10]) + '","top_20_words":"' + str(top_N_user_words[i]) + '"}'
+        json_string += ']}'
+        #
+        self.save_json_to_path(json_string, path)
+    def user_history_to_json(self, user_history, path):
+        """ Takes the sql cursor and formats it into a json string and saves it. """
+        #
+        json_string = '{"user_history": ['
+        #
+        for i, tuple in enumerate(user_history):
+            if i == 0:
+                json_string += '{"user_id":"' + str(tuple[0][0]) + '","state":"' + str(tuple[0][1]) + '","city":"' + str(
+                    tuple[0][2]) + '","neighborhood":"' + str(tuple[0][3]) + '","latitude":' + str(
+                    tuple[0][4]) + ',"longitude":' + str(tuple[0][5]) + ',"address":"' + str(tuple[0][6]) + '","name":"' + str(
+                    tuple[0][7]) + '","date":"' + str(tuple[0][8]) + '"}'
+            else:
+                json_string += ',{"user_id":"' + str(tuple[0][0]) + '","state":"' + str(tuple[0][1]) + '","city":"' + str(
+                    tuple[0][2]) + '","neighborhood":"' + str(tuple[0][3]) + '","latitude":' + str(
+                    tuple[0][4]) + ',"longitude":' + str(tuple[0][5]) + ',"address":"' + str(tuple[0][6]) + '","name":"' + str(
+                    tuple[0][7]) + '","date":"' + str(tuple[0][8]) + '"}'
+        json_string += ']}'
+        #
+        self.save_json_to_path(json_string, path)
+    #
     # def save_json_to_path(self, json_string, path):
     #     """ Takes the json string and saves it to file """
     #     with open(path, 'w') as f:
