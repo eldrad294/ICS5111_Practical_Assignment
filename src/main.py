@@ -25,8 +25,8 @@ from src.visual.visual_handler import visual
 #sentence = "Very disappointed! Got the all you can eat crab legs for $50 with my sister in law and they tasted dried out like they were someone else's reheated left overs. Then both of us ended up with very upset stomachs about 30 mins after. So basically we paid $60 each to get diarrhea. Not happy!"
 #sentence = "Not good. My masseuse applied zero pressure. Not worth spending your hard earned cash on."
 #sentence = "My expectations were low-I expected good, not great food, reasonably priced.  I made a point of asking for and ordering gluten free foods.  Well the lentil soup was virtually flavorless.  The nachos were nuked in a microwave, half the chips were the crumbs from the bottom of the bag, and the salsa was not spicy but tasted more like marinara.   the \"gluten free\" main course arrived with wheat rather than rice noodles.  I will never return."
-# pred = sa.predict(sentence)
-# print(pred)
+#pred = sa.predict(sentence)
+#print(pred)
 # print(sa.test_set())
 #
 # ---------------------------------------
@@ -43,6 +43,6 @@ business_category = 'Food'
 #
 # c.get_business_cluster('state')
 #
-#c.get_business_user_graph(state=state,business_category=business_category)
+c.get_business_user_graph(state=state,business_category=business_category)
 #
-c.data_mine_top_N_users(N=500,top_trending_word_count=20)
+#c.data_mine_top_N_users(N=500,top_trending_word_count=20)

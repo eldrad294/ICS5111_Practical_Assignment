@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" line="78" mnemonic="3" />
+    <bookmark url="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" line="81" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8987039-6142-4397-af14-4255e419382a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data analysis/User Stats and History/Top_Reviewers_Analysis.xlsx" afterPath="$PROJECT_DIR$/data analysis/User Stats and History/Top_Reviewers_Analysis.xlsx" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/Generated/graph.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/Generated/user_datamined.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/Generated/user_history.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/constants/sql_consts.py" afterPath="$PROJECT_DIR$/src/constants/sql_consts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/db/core.py" afterPath="$PROJECT_DIR$/src/db/core.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/db/query/User Datamining.sql" afterPath="$PROJECT_DIR$/src/db/query/User Datamining.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.py" afterPath="$PROJECT_DIR$/src/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" afterPath="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/Templates/geo.json" afterPath="$PROJECT_DIR$/src/utils/Templates/geo.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/json_formatter.py" afterPath="$PROJECT_DIR$/src/utils/json_formatter.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/word_bucket.py" afterPath="$PROJECT_DIR$/src/utils/word_bucket.py" />
     </list>
     <ignored path="ICS5111_Practical_Assignment.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +36,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+            <state relative-caret-position="354">
+              <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -43,31 +45,61 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sql_consts.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/constants/sql_consts.py">
+      <file leaf-file-name="core.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/db/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="371" column="40" selection-start-line="371" selection-start-column="40" selection-end-line="371" selection-end-column="40" />
+            <state relative-caret-position="282">
+              <caret line="106" column="36" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="force_graph.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/db/query/force_graph.sql">
+      <file leaf-file-name="json_formatter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/json_formatter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="40" column="23" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
+            <state relative-caret-position="231">
+              <caret line="50" column="23" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="geo_clustering.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/db/query/geo_clustering.sql">
+      <file leaf-file-name="SentimentAnalyzer_NB.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
+            <state relative-caret-position="265">
+              <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Text_Cleanup.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="graph.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/Generated/graph.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3451">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="word_bucket.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/word_bucket.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -89,7 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/visual/model_handler.py" />
         <option value="$PROJECT_DIR$/src/visual/histogram_module.py" />
         <option value="$PROJECT_DIR$/src/visual/scatter_module.py" />
         <option value="$PROJECT_DIR$/src/preprocessing/Normalize.py" />
@@ -113,7 +144,6 @@
         <option value="$PROJECT_DIR$/src/suggested_businesses.json" />
         <option value="$PROJECT_DIR$/src/db/query/Business Filter Query.sql" />
         <option value="$PROJECT_DIR$/src/yelp.json" />
-        <option value="$PROJECT_DIR$/src/utils/Templates/geo.json" />
         <option value="$PROJECT_DIR$/src/neighborhood_geo.json" />
         <option value="$PROJECT_DIR$/src/state_geo.json" />
         <option value="$PROJECT_DIR$/src/Graph.ipynb" />
@@ -131,15 +161,17 @@
         <option value="$PROJECT_DIR$/src/visual/FlightAnimation/routes.js" />
         <option value="$PROJECT_DIR$/src/visual/FlightAnimation/index.html" />
         <option value="$PROJECT_DIR$/src/visual/FlightAnimation/us-airports-major.topo02.json" />
-        <option value="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" />
-        <option value="$PROJECT_DIR$/src/utils/word_bucket.py" />
         <option value="$PROJECT_DIR$/src/db/query/User Datamining.sql" />
         <option value="$PROJECT_DIR$/src/constants/sql_consts.py" />
         <option value="$PROJECT_DIR$/src/db/core.py" />
+        <option value="$PROJECT_DIR$/src/utils/Generated/user_datamined.json" />
+        <option value="$PROJECT_DIR$/src/utils/Templates/geo.json" />
         <option value="$PROJECT_DIR$/src/user_datamined.json" />
-        <option value="$PROJECT_DIR$/src/user_history.json" />
-        <option value="$PROJECT_DIR$/src/main.py" />
         <option value="$PROJECT_DIR$/src/utils/json_formatter.py" />
+        <option value="$PROJECT_DIR$/src/user_history.json" />
+        <option value="$PROJECT_DIR$/src/utils/word_bucket.py" />
+        <option value="$PROJECT_DIR$/src/main.py" />
+        <option value="$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" />
       </list>
     </option>
   </component>
@@ -174,8 +206,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -292,28 +322,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ICS5111_Practical_Assignment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ICS5111_Practical_Assignment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="constants" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -344,6 +352,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -554,12 +564,12 @@
     <frame x="1912" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25039744" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27742448" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4636678" sideWeight="0.1518283" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34371397" sideWeight="0.16057234" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4636678" sideWeight="0.8481717" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34371397" sideWeight="0.83942765" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -613,35 +623,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/textprocessing/Scoring_Functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/suggested_businesses.json" />
-    <entry file="file://$PROJECT_DIR$/src/utils/Templates/geo.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda/Lib/site-packages/nltk/tag/perceptron.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-184">
-          <caret line="131" column="8" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda/Lib/site-packages/nltk/tag/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="85" column="25" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/Generated/geo/city_geo.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -703,13 +684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/database_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -792,7 +766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/graph.json" />
     <entry file="file://$PROJECT_DIR$/src/visual/FlightAnimation/us-airports-major.topo02.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -835,27 +808,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-629">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-946255732/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
           <caret line="2351" column="8" selection-start-line="2351" selection-start-column="8" selection-end-line="2351" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="64" column="32" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#9#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -866,49 +822,132 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Generated/graph.json">
+    <entry file="file://$PROJECT_DIR$/src/db/query/User Datamining.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="333" column="2176" selection-start-line="333" selection-start-column="2176" selection-end-line="333" selection-end-column="2176" />
+        <state relative-caret-position="255">
+          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/json_formatter.py">
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_history.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+        <state relative-caret-position="51">
+          <caret line="0" column="672" selection-start-line="0" selection-start-column="672" selection-end-line="0" selection-end-column="672" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_datamined.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="0" column="426" selection-start-line="0" selection-start-column="426" selection-end-line="0" selection-end-column="426" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/query/force_graph.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/word_bucket.py">
+    <entry file="file://$PROJECT_DIR$/src/constants/sql_consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-476">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="6307">
+          <caret line="371" column="40" selection-start-line="371" selection-start-column="40" selection-end-line="371" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_history.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        <state relative-caret-position="119">
+          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_datamined.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Templates/geo.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="58" selection-start-line="7" selection-start-column="58" selection-end-line="7" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/query/geo_clustering.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/query/User Datamining.sql">
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/graph.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="206" column="22" selection-start-line="206" selection-start-column="22" selection-end-line="206" selection-end-column="22" />
+        <state relative-caret-position="-8263">
+          <caret line="0" column="1373" selection-start-line="0" selection-start-column="1373" selection-end-line="0" selection-end-column="1373" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/database_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/json_formatter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="50" column="23" selection-start-line="50" selection-start-column="23" selection-end-line="50" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/textprocessing/SentimentAnalyzer_NB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_history.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15520">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/word_bucket.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_datamined.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1350">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+        <state relative-caret-position="354">
+          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
@@ -917,42 +956,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/db/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="220" column="64" selection-start-line="220" selection-start-column="64" selection-end-line="220" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/query/geo_clustering.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
+        <state relative-caret-position="282">
+          <caret line="106" column="36" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/sql_consts.py">
+    <entry file="file://$PROJECT_DIR$/src/utils/Generated/graph.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="371" column="40" selection-start-line="371" selection-start-column="40" selection-end-line="371" selection-end-column="40" />
+        <state relative-caret-position="3451">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Generated/user_datamined.json">
+    <entry file="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/query/force_graph.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="40" column="23" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
+        <state relative-caret-position="323">
+          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
           <folding />
         </state>
       </provider>
