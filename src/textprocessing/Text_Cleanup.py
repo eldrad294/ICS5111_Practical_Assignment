@@ -22,7 +22,7 @@ class TextCleanup():
         sentence = sentence.lower()
         #
         # Removes trailing /r, /n, /t
-        sentence = sentence.replace("\n","").replace("\r","").replace("\t","")
+        sentence = sentence.replace("\n","").replace("\r","").replace("\t","").replace("\\","").replace("/","")
         #
         # Puts emphasis on first sentence in review
         sentence = str(self._get_first_sentence(sentence,4)) + ' ' + sentence

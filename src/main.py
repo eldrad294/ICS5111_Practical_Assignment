@@ -1,4 +1,4 @@
-from src.visual.visual_handler import visual
+#from src.visual.visual_handler import visual
 # if __name__ == '__main__':
 #     visual().bar_handler()
 # visual().boxplot_handler()
@@ -33,7 +33,7 @@ from src.visual.visual_handler import visual
 #
 from src.db.core import Core
 c = Core()
-state = 'HLD'
+city = 'Woodmere'
 business_category = 'Food'
 # c.populate_table_business_user_sentiment(state=state)
 #
@@ -43,6 +43,6 @@ business_category = 'Food'
 #
 # c.get_business_cluster('state')
 #
-c.get_business_user_graph(state=state,business_category=business_category)
+c.get_business_user_graph(city=city,business_category=business_category)
 #
 #c.data_mine_top_N_users(N=500,top_trending_word_count=20)

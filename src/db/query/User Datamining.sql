@@ -12,8 +12,8 @@ select u.id,
 	   avg(latitude) as latitude,
 	   avg(longitude) as longitude,
        case
-           when avg(b.stars) > 4.5 then "Upper Class"
-           when avg(b.stars) > 3.5 then "Medium Class"
+           when avg(b.stars) > 4.0 then "Upper Class"
+           when avg(b.stars) > 3.0 then "Medium Class"
            else "Lower Class"
 		end
        financial_status,

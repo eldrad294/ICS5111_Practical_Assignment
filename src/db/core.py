@@ -80,19 +80,19 @@ class Core():
         # Return cursor as JSON format
         self.jf.business_cluster_to_json(cluster_cursor, cluster_category + '_geo.json')
     #
-    def get_business_user_graph(self, business_category='Food',state='OH', business_name=None):
+    def get_business_user_graph(self, business_category='Food',city='OH', business_name=None):
         """ Creates a json file consisting of Business Node Clusters with respect to users """
         #
         # Input formatting
         business_category = business_category.lower()
-        state = state.upper()
+        city = city.upper()
         #
         # Establish database connection
         conn = self.db_obj.connect()
         #
         if business_name is None:
-            sql = sc.sql_BUSINESS_USER_NODES(state, business_category)
-            sql2 = sc.sql_BUSINESS_USER_LINKS(state, business_category)
+            sql = sc.sql_BUSINESS_USER_NODES(city, business_category)
+            sql2 = sc.sql_BUSINESS_USER_LINKS(city, business_category)
         else:
             pass
         #
@@ -112,18 +112,18 @@ class Core():
         #
         print('JSON file successfully created!')
     #
-    def populate_table_business_user_sentiment(self, state):
+    def populate_table_business_user_sentiment(self, city):
         """
         This method carries out sentiment analysis on user reviews per business, and calculates a sentiment value
         vector to assign to a particular business. It then goes over every business which had sentiment analysis
         performed on it and updates table BUSINESS_USER_SENTIMENT
         """
-        print("Started sentiment analysis on state " + str(state))
+        print("Started sentiment analysis on state " + str(city))
         #
         # Establish database connection
         conn = self.db_obj.connect()
         #
-        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT(state.upper())
+        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT(city.upper())
         #
         # Retrieve businesses
         print('Retrieving Yelp reviews...')
@@ -176,7 +176,7 @@ class Core():
         # Closes database connection
         self.db_obj.close(conn)
         #
-        print('Sentiment Analysis performed on ' + state + " done!!")
+        print('Sentiment Analysis performed on ' + city + " done!!")
     #
     def get_top_N_trending_words(self, user_id, N=10):
         """ Returns the top N trending words used in either reviews and/or tips """
@@ -206,7 +206,7 @@ class Core():
         return top_N_words
     #
     def data_mine_top_N_users(self, N=500, top_trending_word_count=20):
-        """ Constructs 2 JSON files for the top N users, one consiting of user estimated living coordinates, and
+        """ Constructs 2 JSON files for the top N users, one consisting of user estimated living coordinates, and
             another with a users trace history """
         #
         print("Started data mining task on top " + str(N) + " users..")

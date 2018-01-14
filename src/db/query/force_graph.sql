@@ -18,7 +18,7 @@ on ec.primary_category = c.category
 or ec.secondary_category = c.category
 or ec.tertiary_category = c.category
 where 1=1
-and b.state = '3'
+and b.city = 'Woodmere'
 and r.useful > 0
 and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%Food%'
 group by b.id)
@@ -41,7 +41,7 @@ on ec.primary_category = c.category
 or ec.secondary_category = c.category
 or ec.tertiary_category = c.category
 where 1=1
-and b.state = '3'
+and b.city = 'Woodmere'
 and r.useful > 0
 and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%Food%'
 group by u.id);
@@ -62,7 +62,7 @@ on ec.primary_category = c.category
 or ec.secondary_category = c.category
 or ec.tertiary_category = c.category
 where 1=1
-and b.state = '3'
+and b.city = 'Woodmere'
 and r.useful > 0
 and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%Food%'
 group by b.id, u.id;

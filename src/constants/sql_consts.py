@@ -123,7 +123,7 @@ sql_BUSINESS_USER_NODES = lambda state, category : "(select concat( " \
                                                     "or ec.secondary_category = c.category " \
                                                     "or ec.tertiary_category = c.category " \
                                                     "where 1=1 " \
-                                                    "and b.state = '" + str(state) + "' " \
+                                                    "and b.city = '" + str(state) + "' " \
                                                     "and r.useful > 0 " \
                                                     "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
                                                     "group by b.id) " \
@@ -146,7 +146,7 @@ sql_BUSINESS_USER_NODES = lambda state, category : "(select concat( " \
                                                     "or ec.secondary_category = c.category " \
                                                     "or ec.tertiary_category = c.category " \
                                                     "where 1=1 " \
-                                                    "and b.state = '" + str(state) + "' " \
+                                                    "and b.city = '" + str(state) + "' " \
                                                     "and r.useful > 0 " \
                                                     "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
                                                     "group by u.id); "
@@ -165,7 +165,7 @@ sql_BUSINESS_USER_LINKS = lambda state, category : "select b.id as business_id, 
                                                     "or ec.secondary_category = c.category " \
                                                     "or ec.tertiary_category = c.category " \
                                                     "where 1=1 " \
-                                                    "and b.state = '" + str(state) + "' " \
+                                                    "and b.city = '" + str(state) + "' " \
                                                     "and r.useful > 0 " \
                                                     "and concat(ec.primary_category, ec.secondary_category, ec.tertiary_category) like '%" + str(category) + "%' " \
                                                     "group by b.id, u.id; "
@@ -183,8 +183,8 @@ sql_USER_DATA_MINE = lambda user_id : "select u.id, " \
                                         "	   avg(latitude) as latitude, " \
                                         "	   avg(longitude) as longitude, " \
                                         "      case " \
-                                        "          when avg(b.stars) > 4.5 then \"Upper Class\" " \
-                                        "          when avg(b.stars) > 3.5 then \"Medium Class\" " \
+                                        "          when avg(b.stars) > 4.0 then \"Upper Class\" " \
+                                        "          when avg(b.stars) > 3.0 then \"Medium Class\" " \
                                         "          else \"Lower Class\" " \
                                         "		end " \
                                         "      financial_status, " \
