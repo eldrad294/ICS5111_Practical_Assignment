@@ -1,6 +1,6 @@
 #from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
-#from src.textprocessing.SentimentAnalyzer_VADER import SentimentAnalyzer
-from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
+from src.textprocessing.SentimentAnalyzer_VADER import SentimentAnalyzer
+#from src.textprocessing.SentimentAnalyzer_NB import SentimentAnalyzer
 sa = SentimentAnalyzer()
 import json
 #
@@ -113,6 +113,35 @@ class json_formatter():
                         tuple[j][2]) + '","neighborhood":"' + str(tuple[j][3]) + '","latitude":' + str(
                         tuple[j][4]) + ',"longitude":' + str(tuple[j][5]) + ',"address":"' + str(tuple[j][6]) + '","name":"' + str(
                         tuple[j][7]) + '","date":"' + str(tuple[j][8]) + '"}'
+        json_string += ']}'
+        #
+        self.save_json_to_path(json_string, path)
+    #
+    def generate_word_graph_template(self, top_N_user_words, path):
+        """ Generates word cloud json file """
+        #
+        json_string = '{"word_cloud": ['
+        #
+        i = 0
+        for word_string in top_N_user_words:
+            word_list = word_string.split(",")
+            for word in word_list:
+                pred = sa.predict(word)
+                if pred == 'pos':
+                    pred_output = 'pos'
+                elif pred == 'neu':
+                    pred_output = 'neu'
+                elif pred == 'neg':
+                    pred_output = 'neg'
+                else:
+                    print('Unsupported Sentiment Type..exiting')
+                    exit(0)
+                #
+                if i == 0:
+                    json_string += '{"word":"' + word + '", "sentiment":"' + pred_output + '"}'
+                else:
+                    json_string += ',{"word":"' + word + '", "sentiment":"' + pred_output + '"}'
+                i += 1
         json_string += ']}'
         #
         self.save_json_to_path(json_string, path)

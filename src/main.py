@@ -43,6 +43,6 @@ business_category = 'Food'
 #
 # c.get_business_cluster('state')
 #
-c.get_business_user_graph(city=city,business_category=business_category)
+#c.get_business_user_graph(city=city,business_category=business_category)
 #
-#c.data_mine_top_N_users(N=500,top_trending_word_count=20)
+c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)

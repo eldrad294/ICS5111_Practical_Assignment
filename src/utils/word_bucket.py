@@ -1,5 +1,6 @@
 import operator
 from nltk.corpus import stopwords
+from nltk import pos_tag, word_tokenize
 import re
 #
 class Word_Bucket():
@@ -7,7 +8,7 @@ class Word_Bucket():
     def __init__(self):
         pass
     #
-    def get_top_N_frequent_words(self, text, N=10):
+    def get_top_N_frequent_words(self, text, N=10, pos=False):
         """ Returns top N frequently used words in passed text. """
         #
         text_list = self.__clean_words(text)
@@ -23,11 +24,22 @@ class Word_Bucket():
         frequency_words = sorted(frequency_words.items(), key=operator.itemgetter(1), reverse=True)
         #
         keys, values = [], []
-        for i in range(len(frequency_words)):
-            if i >= N:
+        i = 0
+        for x in range(len(frequency_words)):
+            if i > N:
                 break
-            keys.append(frequency_words[i][0])
-            values.append(frequency_words[i][1])
+            if pos==True:
+                tagged_sentence = pos_tag(word_tokenize(frequency_words[x][0]))
+                stripped_tags = ['VB','VBG','VBN','VBP','VBZ','WP','JJ','JJR','JJS','FW','WRB', 'RB','RBR','RBS','RP','UH','CC'] # https://pythonprogramming.net/natural-language-toolkit-nltk-part-speech-tagging/
+                for word, type in tagged_sentence:
+                    if type in stripped_tags:
+                        keys.append(frequency_words[x][0])
+                        values.append(frequency_words[x][1])
+                        i += 1
+            else:
+                keys.append(frequency_words[x][0])
+                values.append(frequency_words[x][1])
+                i += 1
         #
         return keys, values
     #
@@ -44,7 +56,7 @@ class Word_Bucket():
         text = re.sub(r'\d+', '', text)
         #
         # Remove punctuation
-        punctuation = ('.',',',':',';','"','\'','!','?','+','-','{','}','(',')','[',']','#','&','$','/','*','%','^','@','=', '\n', '\r', '\t')
+        punctuation = ('.',',',':',';','"','\'','!','?','+','-','{','}','(',')','[',']','#','&','$','/','*','%','^','@','=', '\n', '\r', '\t','')
         for punct in punctuation:
             text = text.replace(punct,'')
         #

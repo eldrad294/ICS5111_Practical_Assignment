@@ -178,7 +178,7 @@ class Core():
         #
         print('Sentiment Analysis performed on ' + city + " done!!")
     #
-    def get_top_N_trending_words(self, user_id, N=10):
+    def get_top_N_trending_words(self, user_id, N=10, pos=False):
         """ Returns the top N trending words used in either reviews and/or tips """
         #
         print('Returning all text pertaining to user: ' + str(user_id))
@@ -198,14 +198,17 @@ class Core():
             for text in tuple:
                 agglomorated_text += text + " "
         #
-        keys, values = self.wb.get_top_N_frequent_words(agglomorated_text, N)
+        keys, values = self.wb.get_top_N_frequent_words(agglomorated_text, N, pos)
         #
         top_N_words = ""
-        for i in range(len(keys)):
-            top_N_words += str(keys[i]) + ","
+        for i in range(1,len(keys)):
+            if i == N:
+                top_N_words += str(keys[i])
+            else:
+                top_N_words += str(keys[i]) + ","
         return top_N_words
     #
-    def data_mine_top_N_users(self, N=500, top_trending_word_count=20):
+    def data_mine_top_N_users(self, N=500, top_trending_word_count=20, pos=False):
         """ Constructs 2 JSON files for the top N users, one consisting of user estimated living coordinates, and
             another with a users trace history """
         #
@@ -229,7 +232,7 @@ class Core():
                 #
                 # Returns top N trending words by user
                 print('Retrieving top trending words..')
-                top_N_user_words.append(self.get_top_N_trending_words(user_id, top_trending_word_count))
+                top_N_user_words.append(self.get_top_N_trending_words(user_id, top_trending_word_count, pos))
                 #
                 print('Retrieving user history')
                 sql = sc.sql_USER_HISTORY(user_id)
@@ -244,5 +247,6 @@ class Core():
         # Pass lists to be converted into JSON files
         self.jf.user_data_mined_to_json(user_datamined_data, top_N_user_words, 'user_datamined.json')
         self.jf.user_history_to_json(user_history, 'user_history.json')
+        self.jf.generate_word_graph_template(top_N_user_words, 'user_word_cloud.json')
         #
         print('JSON files successfully created!')

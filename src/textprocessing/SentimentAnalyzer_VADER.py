@@ -30,9 +30,9 @@ class SentimentAnalyzer():
             if val > sentiment_score and key != "compound":
                 sentiment = key
                 sentiment_score = val
-        print(sentence)
-        print(sentiment)
-        print('---------------------------')
+        # print(sentence)
+        # print(sentiment)
+        # print('---------------------------')
         return sentiment
     #
     def test_set(self):
