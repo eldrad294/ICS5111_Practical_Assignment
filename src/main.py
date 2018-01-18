@@ -3,6 +3,13 @@
 #     visual().bar_handler()
 # visual().boxplot_handler()
 # visual().pieplot_handler()
+from src.visual.csv_plots import csv_plots
+#csv_plots().N_of_user_comments_distribution_per_business_states()
+#csv_plots().N_of_primary_categories()
+#csv_plots().N_of_secondary_categories()
+#csv_plots().retrieve_comment_distribution_by_category()
+#csv_plots().user_comments_over_time()
+#csv_plots().Average_review_length_per_star_rating()
 #
 # ----------------------------------------
 #
@@ -31,10 +38,10 @@
 #
 # ---------------------------------------
 #
-from src.db.core import Core
-c = Core()
-city = 'Woodmere'
-business_category = 'Food'
+# from src.db.core import Core
+# c = Core()
+# city = 'Woodmere'
+# business_category = 'Food'
 # c.populate_table_business_user_sentiment(state=state)
 #
 # time = ['Sunday','10:00']
@@ -45,4 +52,4 @@ business_category = 'Food'
 #
 #c.get_business_user_graph(city=city,business_category=business_category)
 #
-c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)
+# c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)
