@@ -34,7 +34,7 @@ from src.visual.csv_plots import csv_plots
 #sentence = "My expectations were low-I expected good, not great food, reasonably priced.  I made a point of asking for and ordering gluten free foods.  Well the lentil soup was virtually flavorless.  The nachos were nuked in a microwave, half the chips were the crumbs from the bottom of the bag, and the salsa was not spicy but tasted more like marinara.   the \"gluten free\" main course arrived with wheat rather than rice noodles.  I will never return."
 #pred = sa.predict(sentence)
 #print(pred)
-# print(sa.test_set())
+#print(sa.test_set())
 #
 # ---------------------------------------
 #
