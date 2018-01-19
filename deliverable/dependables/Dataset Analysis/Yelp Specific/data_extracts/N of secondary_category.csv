@@ -1,0 +1,459 @@
+count(*),secondary_category
+1,Accountants
+1,Acupuncture
+1,Adult
+1,"Adult Education"
+1,"Adult Entertainment"
+1,Advertising
+1,Afghan
+2,African
+1,Airports
+1,"Amateur Sports Teams"
+1,"American (New)"
+1,"American (Traditional)"
+1,"Amusement Parks"
+1,"Animal Shelters"
+1,Antiques
+1,Apartments
+1,"Appliances & Repair"
+1,Aquariums
+1,Arabian
+1,Arcades
+1,Archery
+1,Architects
+1,Argentine
+1,Armenian
+2,"Art Galleries"
+5,"Arts & Crafts"
+1,"Asian Fusion"
+1,"Auction Houses"
+1,Australian
+1,Austrian
+1,"Auto Detailing"
+1,"Auto Glass Services"
+1,"Auto Loan Providers"
+1,"Auto Parts & Supplies"
+1,"Auto Repair"
+1,"Baby Gear & Furniture"
+1,Badminton
+1,Bagels
+1,"Bail Bondsmen"
+1,Bakeries
+1,Bangladeshi
+1,"Banks & Credit Unions"
+1,Barbeque
+1,Barbers
+9,Bars
+1,Bartenders
+1,"Basketball Courts"
+1,Basque
+1,Beaches
+1,"Bed & Breakfast"
+1,"Beer, Wine & Spirits"
+1,Belgian
+1,"Bespoke Clothing"
+1,"Bike Rentals"
+1,"Bike Repair/Maintenanc"
+1,"Boat Charters"
+1,"Boat Dealers"
+1,"Boat Repair"
+1,Boating
+1,"Body Shops"
+6,"Books, Mags, Music & V"
+1,"Botanical Gardens"
+1,Bowling
+1,Brasseries
+1,Brazilian
+1,"Breakfast & Brunch"
+1,Breweries
+1,Bridal
+1,British
+1,"Bubble Tea"
+1,"Buddhist Temples"
+1,Buffets
+1,"Building Supplies"
+1,Burgers
+1,Burmese
+1,Butcher
+1,Cafes
+1,Cafeteria
+1,Cajun/Creole
+1,Cambodian
+1,Campgrounds
+1,"Cannabis Clinics"
+1,"Car Dealers"
+1,"Car Rental"
+1,"Car Stereo Installatio"
+1,"Car Wash"
+1,"Cards & Stationery"
+1,"Career Counseling"
+4,Caribbean
+1,"Carpet Cleaning"
+1,"Carpet Installation"
+1,Carpeting
+1,Casinos
+1,Catalan
+1,Caterers
+1,"Check Cashing/Pay-day "
+1,Cheesesteaks
+1,"Chicken Wings"
+1,"Child Care & Day Care"
+4,Chinese
+1,Chiropractors
+1,Churches
+1,Cinema
+1,Climbing
+1,Clowns
+1,"Coffee & Tea"
+1,"College Counseling"
+1,"Colleges & Universitie"
+1,"Comedy Clubs"
+1,"Comfort Food"
+1,"Commercial Real Estate"
+1,"Community Service/Non-"
+1,Computers
+1,Contractors
+1,"Convenience Stores"
+2,"Cosmetics & Beauty Sup"
+1,"Counseling & Mental He"
+1,"Country Dance Halls"
+1,"Couriers & Delivery Se"
+1,Courthouses
+1,Creperies
+1,CSA
+1,Cuban
+1,"Cultural Center"
+1,Czech
+1,"Damage Restoration"
+1,"Dance Clubs"
+1,"Day Spas"
+1,Delis
+7,Dentists
+1,"Department Stores"
+1,"Departments of Motor V"
+1,Desserts
+2,"Diagnostic Services"
+1,Diners
+1,"Disc Golf"
+1,"Discount Store"
+2,Diving
+1,DJs
+1,"Do-It-Yourself Food"
+27,Doctors
+1,Donuts
+1,Drugstores
+1,"Dry Cleaning & Laundry"
+1,"Editorial Services"
+1,"Educational Services"
+1,Electricians
+2,"Electronics Repair"
+1,"Elementary Schools"
+1,Embassy
+1,"Employment Agencies"
+1,Ethiopian
+1,"Eyelash Service"
+1,"Eyewear & Opticians"
+1,"Farmers Market"
+15,Fashion
+1,"Fast Food"
+1,Festivals
+1,Filipino
+1,"Financial Advising"
+1,"Fire Departments"
+1,"Fish & Chips"
+1,Fishing
+11,"Fitness & Instruction"
+1,Flooring
+1,Fondue
+1,"Food Court"
+1,"Food Delivery Services"
+1,"Food Stands"
+1,"Food Trucks"
+1,French
+1,"Funeral Services & Cem"
+1,"Furniture Reupholstery"
+1,"Garage Door Services"
+1,Gardeners
+1,"Gas & Service Stations"
+1,Gastropubs
+1,Gelato
+1,German
+1,Gluten-Free
+1,"Go Karts"
+1,Golf
+1,"Graphic Design"
+1,Greek
+1,Grocery
+1,"Guest Houses"
+1,"Gun/Rifle Ranges"
+1,Gymnastics
+1,"Hair Extensions"
+1,"Hair Removal"
+4,"Hair Salons"
+1,Halal
+1,Handyman
+1,"Hang Gliding"
+1,Hawaiian
+1,"Hearing Aid Providers"
+1,"Heating & Air Conditio"
+1,Hiking
+1,Himalayan/Nepalese
+1,"Hindu Temples"
+1,"Home Cleaning"
+1,"Home Health Care"
+1,"Home Inspectors"
+1,"Home Organization"
+1,"Home Staging"
+1,"Home Theatre Installat"
+1,"Home Window Tinting"
+1,"Horse Boarding"
+1,"Horse Racing"
+1,"Horseback Riding"
+1,Hospice
+1,Hospitals
+1,Hostels
+1,"Hot Air Balloons"
+1,"Hot Dogs"
+1,"Hot Pot"
+2,Hotels
+1,Hungarian
+1,Iberian
+1,"Ice Cream & Frozen Yog"
+1,Indian
+1,Indonesian
+1,Insurance
+1,"Interior Design"
+1,"Internet Cafes"
+2,"Internet Service Provi"
+1,Investing
+1,Irish
+1,Irrigation
+2,"IT Services & Computer"
+1,Italian
+1,Japanese
+2,"Jazz & Blues"
+1,"Jewelry Repair"
+1,"Juice Bars & Smoothies"
+1,"Junk Removal & Hauling"
+1,Karaoke
+1,"Keys & Locksmith"
+1,Kiteboarding
+1,Korean
+1,Kosher
+1,"Lactation Services"
+1,Lakes
+1,"Landmarks & Historical"
+1,"Landscape Architects"
+1,Landscaping
+1,Laotian
+1,"Laser Eye Surgery/Lasi"
+1,"Laser Tag"
+3,"Latin American"
+11,Lawyers
+1,"Legal Services"
+1,"Leisure Centers"
+1,Libraries
+1,"Life Coach"
+1,"Lighting Fixtures & Eq"
+1,"Live/Raw Food"
+1,Magicians
+1,"Makeup Artists"
+1,Malaysian
+1,Marketing
+1,Masonry/Concrete
+1,Massage
+1,"Massage Therapy"
+1,Matchmakers
+1,"Medical Centers"
+2,"Medical Spas"
+1,"Medical Transportation"
+1,Meditteranean
+1,Mexican
+2,"Middle Eastern"
+1,"Middle Schools & High "
+1,Midwives
+1,"Mini Golf"
+1,"Modern European"
+1,Mongolian
+1,"Mortgage Brokers"
+1,Mosques
+1,"Motorcycle Dealers"
+1,"Motorcycle Rental"
+1,"Motorcycle Repair"
+1,"Mountain Biking"
+1,Movers
+1,Museums
+2,"Music Venues"
+1,Musicians
+1,"Nail Salons"
+1,"Nanny Services"
+1,Notaries
+1,Nutritionists
+1,"Occupational Therapy"
+1,"Office Cleaning"
+1,Officiants
+1,"Oil Change Stations"
+1,"Opera & Ballet"
+1,Optometrists
+1,Paddleboarding
+1,Paintball
+1,Painters
+1,Pakistani
+1,Parking
+2,Parks
+1,"Part & Event Planning"
+1,"Party Bus Rentals"
+1,"Party Equipment Rental"
+1,"Party Supplies"
+1,"Payroll Services"
+1,"Performing Arts"
+1,"Permanent Makeup"
+1,Persian/Iranian
+1,"Personal Assistants"
+1,"Personal Chefs"
+1,Peruvian
+1,"Pest Control"
+4,"Pet Services"
+1,"Pet Stores"
+2,Photographers
+1,"Physical Therapy"
+1,"Piano Bars"
+1,Piercing
+1,Pizza
+1,Playgrounds
+1,Plumbing
+1,"Police Departments"
+1,Polish
+1,"Pool Cleaners"
+1,"Pool Halls"
+1,Portuguese
+1,"Post Offices"
+1,Preschools
+1,Pretzels
+1,"Print Media"
+1,"Printing Services"
+1,"Private Investigation"
+1,"Private Tutors"
+1,"Professional Sports Te"
+1,"Property Management"
+1,"Psychics & Astrologers"
+1,"Public Relations"
+1,"Race Tracks"
+1,"Radio Stations"
+1,Rafting/Kayaking
+9,"Real Estate"
+1,"Real Estate Agents"
+1,"Real Estate Services"
+1,"Recording & Rehearsal "
+1,"Recreation Centers"
+1,"Recycling Center"
+1,Reflexology
+1,"Rehabilitation Center"
+1,"Religious Schools"
+1,Resorts
+1,"Retirement Homes"
+1,"Rock Climbing"
+1,Rolfing
+1,Roofing
+1,Russian
+1,"RV Dealers"
+1,"RV Parks"
+1,"RV Rental"
+1,Salad
+1,Sandwiches
+1,Scandinavian
+1,Scottish
+1,"Screen Printing"
+1,"Screen Printing/T-Shir"
+1,Seafood
+1,"Security Systems"
+1,"Self Storage"
+1,"Sewing & Alterations"
+1,"Shades & Blinds"
+1,"Shared Office Spaces"
+1,"Shaved Ice"
+1,"Shipping Centers"
+1,"Shoe Repair"
+1,Singaporean
+1,"Skating Rinks"
+1,"Ski Resorts"
+1,"Skin care"
+1,Skydiving
+1,Slovakian
+1,"Smog Check Stations"
+1,"Snow Removal"
+1,Soccer
+1,"Social Clubs"
+1,"Solar Installation"
+1,"Soul Food"
+1,Soup
+1,Southern
+1,Spanish
+1,"Special Education"
+9,"Specialty Food"
+12,"Specialty Schools"
+1,"Speech Therapists"
+1,"Spin Classes"
+1,"Sports Clubs"
+1,Squash
+1,"Stadiums & Arenas"
+1,Steakhouses
+1,"Street Vendors"
+1,"Summer Camps"
+1,Surfing
+1,"Sushi Bars"
+1,"Swimming Pools"
+1,Synagogues
+1,Taiwanese
+1,"Talent Agencies"
+2,Tanning
+1,"Tapas Bars"
+1,"Tapas/Small Plates"
+1,Tattoo
+1,"Tax Services"
+1,Taxidermy
+1,"Tea Rooms"
+1,"Television Service Pro"
+1,"Television Stations"
+1,Tennis
+1,"Test Preparation"
+1,Tex-Mex
+1,Thai
+1,"Ticket Sales"
+1,Tires
+1,Tours
+1,Towing
+1,"Traditional Chinese Me"
+1,"Train Stations"
+1,"Trampoline Parks"
+1,"Translation Services"
+5,Transportation
+1,"Travel Services"
+1,"Tree Services"
+1,"Truck Rental"
+1,Tubing
+1,Turkish
+1,"Tutoring Centers"
+1,Ukranian
+1,"University Housing"
+1,"Urgent Care"
+1,Utilities
+1,"Vacation Rental Agents"
+1,"Vacation Rentals"
+1,Vegan
+1,Vegetarian
+1,"Venues & Event Spaces"
+1,Veterinarians
+1,"Video/Film Production"
+1,Videographers
+1,Vietnamese
+1,"Watch Repair"
+1,"Web Design"
+1,"Wedding Planning"
+1,"Weight Loss Centers"
+1,"Window Washing"
+1,"Windows Installation"
+1,"Windshield Installatio"
+2,Wineries
+1,"Yelp Events"
+1,Zoos
