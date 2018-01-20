@@ -38,11 +38,12 @@ print(sa.test_set())
 #
 # ---------------------------------------
 #
-# from src.db.core import Core
-# c = Core()
-# city = 'Woodmere'
+from src.db.core import Core
+c = Core()
+city = 'Woodmere'
+state = 'NV'
 # business_category = 'Food'
-# c.populate_table_business_user_sentiment(state=state)
+c.populate_table_business_user_sentiment(state=state)
 #
 # time = ['Sunday','10:00']
 # coordinates = [43.8409,-79.3996]

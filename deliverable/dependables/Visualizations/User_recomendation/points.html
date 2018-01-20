@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+       
+    <! disable close x in infobox>
+    <! define star rating levels>
+
+    <style>
+        .gm-style-iw+div {
+            display: none;
+        }
+
+        .level-basic {
+            width: 60px;
+            height: 16px;
+            display: block;
+            background: url('http://smabela.x10.mx/graph/star-rating.png') 0 0 no-repeat;
+        }
+
+        .level-50 {
+            background-position: 0 0;
+        }
+
+        .level-40 {
+            background-position: -12px 0;
+        }
+
+        .level-30 {
+            background-position: -24px 0;
+        }
+
+        .level-20 {
+            background-position: -36px 0;
+        }
+
+        .level-10 {
+            background-position: -48px 0;
+        }
+
+        .level-0 {
+            background-position: -60px 0;
+        }
+
+        .level-5 {
+            background-position: -48px -16px;
+        }
+
+        .level-15 {
+            background-position: -36px -16px;
+        }
+
+        .level-25 {
+            background-position: -24px -16px;
+        }
+
+        .level-35 {
+            background-position: -12px -16px;
+        }
+
+        .level-45 {
+            background-position: 0 -16px;
+        }
+    </style>
+
+    <title>Points</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+
+        #legend {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            padding: 10px;
+            margin: 10px;
+            border: 3px solid #000;
+        }
+
+        #legend h3 {
+            margin-top: 0;
+        }
+
+        #legend img {
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="legend"><h3>Legend: </br>Review Counts</h3></div>
+
+    <script type="text/javascript">
+
+        // Create the map, specifying center location and zoom level
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 35.8957,
+                lng: -120.7401
+            },
+            showInfoWindow: true
+        });
+
+
+        // Define icons for legend - name and color square
+
+        var icons = {
+          1: {
+            name: '1 - 99',
+            icon: 'http://placeholder.pics/svg/20x20/FFFFFF'
+          },
+          2: {
+            name: '100 - 199',
+            icon: 'http://placeholder.pics/svg/20x20/add8e6'
+          },
+          3: {
+            name: '200 - 299',
+            icon: 'http://placeholder.pics/svg/20x20/0000ff'
+          },
+          4: {
+            name: '300 +',
+            icon: 'http://placeholder.pics/svg/20x20/00008b'
+          }
+        };
+
+        // use d3.js to load json file 
+
+        d3.json("yelp.json", function(json) {
+
+
+            for (var city in json.businesses) {
+
+
+                // use nested ternary operations to create a 4 level colour gradient for business counts
+
+                json.businesses[city].col = json.businesses[city].reviewcount > 300 ? "darkblue" : (json.businesses[city].reviewcount > 200 ? "blue" : (json.businesses[city].reviewcount > 100 ? "lightblue" : "white"));
+
+                if (true) {
+
+                    // Add the circle for this city to the map.
+
+                    var cityCircle = new google.maps.Circle({
+                        strokeColor: ((json.businesses[city].status == "Closed") ? "#FF0000" : "#0000FF"),
+                        strokeOpacity: 1,
+                        strokeWeight: 2,
+                        fillColor: json.businesses[city].col,
+                        fillOpacity: 0.8,
+                        map: map,
+                        center: {
+                            lat: json.businesses[city].latitude,
+                            lng: json.businesses[city].longitude
+                        },
+                        radius: 50
+
+                    });
+
+                // Define content of info window
+
+                    var info2 = '<div align="center"><strong>Business: </strong>' + json.businesses[city].name + '<p><strong>Neighbourhood: </strong>' + json.businesses[city].neighborhood + '<p><strong>Distance: </strong>' + json.businesses[city].distance + '</p>Lat: ' + json.businesses[city].latitude.toFixed(2) + ', Lng: ' + json.businesses[city].longitude.toFixed(2) + '<p><strong>Review Count: </strong>' + json.businesses[city].reviewcount + '<br/></p>' + '<p><strong>Avg Star Rating: </strong>' + json.businesses[city].stars.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json.businesses[city].stars.toFixed(1) * 2)) * 5 + '"></span></div>';
+
+                    createClickableCircle(map, cityCircle, info2);
+
+                }
+
+            }
+
+            // create info window and add listeners for mouse hover over and out
+
+            function createClickableCircle(map, cityCircle, info) {
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: info,
+                    closeBoxURL: "",
+                    closeBoxMargin: "0px 0px 0px 0px",
+                });
+
+
+                google.maps.event.addListener(cityCircle, 'mouseover', function(ev) {
+                    infowindow.setPosition(cityCircle.getCenter());
+                    infowindow.open(map);
+
+                });
+
+                google.maps.event.addListener(cityCircle, 'mouseout', function(ev) {
+
+                    infowindow.close();
+
+
+                });
+
+            }
+
+
+          // define legend contents and add to map
+
+          var legend = document.getElementById('legend');
+                  for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+        });
+    </script>
+
+
+
+</body>
+
+</html>

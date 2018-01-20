@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        .gm-style-iw+div {
+            display: none;
+        } // disable close x in infobox
+    </style>
+    <title>Hex Counts on Google Map</title>
+    <! load jquery.js library>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <! load d3.js library>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <! load google maps API key>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME"></script>
+
+    <!set page, map and legend style>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+       #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="legend"><h3>Legend</h3></div>
+
+    <script type="text/javascript">
+
+        // Create the map, specifying center location and zoom level
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 39.0119,
+                lng: -98.4842
+            },
+            showInfoWindow: true
+        });
+
+        // define icons for legend - name and colored square url
+
+        var icons = {
+          1: {
+            name: '1 - 9',
+            icon: 'http://placeholder.pics/svg/20x20/FFFFFF'
+          },
+          2: {
+            name: '10 - 99',
+            icon: 'http://placeholder.pics/svg/20x20/add8e6'
+          },
+          3: {
+            name: '100 - 999',
+            icon: 'http://placeholder.pics/svg/20x20/0000ff'
+          },
+          4: {
+            name: '1000 +',
+            icon: 'http://placeholder.pics/svg/20x20/00008b'
+          }
+        };
+
+
+        // use d3.js to load json file 
+
+        d3.json("geo.json", function(json) {
+
+
+            for (var city in json) {
+
+                json[city].col = json[city].cnt > 1000 ? "darkblue" : (json[city].cnt > 100 ? "blue" : (json[city].cnt > 10 ? "lightblue" : "white"));
+
+
+            }
+
+            var size = 0.065;
+
+            var latcorr = 1.381;
+
+            for (var city in json) {
+
+
+
+        // define hexagonal shape for binning visualisation
+
+                var cityCircle = new google.maps.Polygon({
+                    paths: [{
+                        lat: json[city].lat + size * 0.86602540378 * latcorr,
+                        lng: json[city].lng - size * 0.5
+                    }, {
+                        lat: json[city].lat + size * 0.86602540378 * latcorr,
+                        lng: json[city].lng + size * 0.5
+                    }, {
+                        lat: json[city].lat,
+                        lng: json[city].lng + size * 0.86602540378
+                    }, {
+                        lat: json[city].lat - size * 0.86602540378 * latcorr,
+                        lng: json[city].lng + size * 0.5
+                    }, {
+                        lat: json[city].lat - size * 0.86602540378 * latcorr,
+                        lng: json[city].lng - size * 0.5
+                    }, {
+                        lat: json[city].lat,
+                        lng: json[city].lng - size * 0.86602540378
+                    }],
+                    strokeColor: 'darkblue',
+                    strokeOpacity: 1,
+                    strokeWeight: 1,
+                    fillColor: json[city].col,
+                    fillOpacity: 0.8,
+                    map: map
+                });
+
+                createClickableCircle(map, cityCircle, "<strong>Count: " + json[city].cnt + "</strong><br/><p>Lat: " + json[city].lat.toFixed(2) + "<br/>Lng: " + json[city].lng.toFixed(2));
+
+            }
+
+        // define contents of info window and add listener to mouse hover over & out
+
+            function createClickableCircle(map, cityCircle, info) {
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: info,
+                    closeBoxURL: "",
+                    closeBoxMargin: "0px 0px 0px 0px"
+                });
+
+
+                google.maps.event.addListener(cityCircle, 'mouseover', function(ev) {
+                    infowindow.setPosition(cityCircle.getPath().getAt(0));
+                    infowindow.open(map);
+
+                });
+
+                google.maps.event.addListener(cityCircle, 'mouseout', function(ev) {
+
+                    infowindow.close();
+
+
+                });
+
+            }
+
+        // define legend and add to map
+
+        var legend = document.getElementById('legend');
+                  for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+          
+        });
+
+    </script>
+
+</body>
+
+</html>

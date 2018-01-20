@@ -112,18 +112,18 @@ class Core():
         #
         print('JSON file successfully created!')
     #
-    def populate_table_business_user_sentiment(self, city):
+    def populate_table_business_user_sentiment(self, state):
         """
         This method carries out sentiment analysis on user reviews per business, and calculates a sentiment value
         vector to assign to a particular business. It then goes over every business which had sentiment analysis
         performed on it and updates table BUSINESS_USER_SENTIMENT
         """
-        print("Started sentiment analysis on state " + str(city))
+        print("Started sentiment analysis on state " + str(state))
         #
         # Establish database connection
         conn = self.db_obj.connect()
         #
-        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT(city.upper())
+        sql = sc.sql_REVIEW_BUSINESS_AND_TEXT(state.upper())
         #
         # Retrieve businesses
         print('Retrieving Yelp reviews...')
@@ -176,7 +176,7 @@ class Core():
         # Closes database connection
         self.db_obj.close(conn)
         #
-        print('Sentiment Analysis performed on ' + city + " done!!")
+        print('Sentiment Analysis performed on ' + state + " done!!")
     #
     def get_top_N_trending_words(self, user_id, N=10, pos=False):
         """ Returns the top N trending words used in either reviews and/or tips """
