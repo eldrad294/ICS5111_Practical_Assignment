@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        .gm-style-iw+div {
+            display: none;
+        } // disable close x in infobox
+    </style>
+    <title>User History</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="chart"></div>
+
+    <script type="text/javascript">
+        var map;
+
+        // Create the map.
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 35.8957,
+                lng: -120.7401
+            },
+            showInfoWindow: true
+        });
+
+        var lineSymbol = {
+            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW
+        };
+
+
+        d3.json("user_history_top_10.json", function(json) {
+
+            var color_array = [];
+
+            for (var city in json.user_history) {
+
+                var colorRand = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+
+                if (!(json.user_history[city].user_id in color_array)) {
+                    color_array.push({
+                        id: json.user_history[city].user_id,
+                        color: colorRand
+                    });
+
+                }
+                json.user_history[city].color = color_array.find(o => o.id === json.user_history[city].user_id).color;
+
+            }
+
+
+            var arrow = 0;
+
+            var lat_old = 0;
+            var lng_old = 0;
+            var col_old = 0;
+
+            for (var city in json.user_history) {
+
+                if (true) {
+                    // Add the circle for this city to the map.
+                    var cityCircle = new google.maps.Circle({
+                        strokeColor: json.user_history[city].color,
+                        strokeOpacity: 1,
+                        strokeWeight: 1,
+                        fillColor: json.user_history[city].color,
+                        fillOpacity: 0.6,
+                        map: map,
+                        center: {
+                            lat: json.user_history[city].latitude,
+                            lng: json.user_history[city].longitude
+                        },
+                        radius: 500
+                    });
+                }
+
+                if (arrow > 0) {
+
+                    if (col_old == json.user_history[city].color) {
+
+                        var line = new google.maps.Polyline({
+                            path: [{
+                                lat: lat_old,
+                                lng: lng_old
+                            }, {
+                                lat: json.user_history[city].latitude,
+                                lng: json.user_history[city].longitude
+                            }],
+                            icons: [{
+                                icon: lineSymbol,
+                                offset: '50%'
+                            }, {
+                                icon: lineSymbol,
+                                offset: '100%'
+                            }],
+                            strokeWeight: 3,
+                            strokeOpacity: 0.8,
+                            strokeColor: json.user_history[city].color,
+                            map: map
+                        });
+
+                    }
+
+                }
+
+                lat_old = json.user_history[city].latitude;
+
+                lng_old = json.user_history[city].longitude;
+
+                col_old = json.user_history[city].color
+
+                arrow = arrow + 1;
+
+                createClickableCircle(map, cityCircle, "<strong>User: </strong>" + json.user_history[city].user_id + "<br/>reviewed<br/><strong>Business: </strong>" + json.user_history[city].name + "<br/><p>Lat: " + json.user_history[city].latitude.toFixed(2) + "<br/>Lng: " + json.user_history[city].longitude.toFixed(2) + "<br/>Date: " + json.user_history[city].date.substring(0, 10));
+
+            }
+
+
+            function createClickableCircle(map, cityCircle, info) {
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: info,
+                    closeBoxURL: "",
+                    closeBoxMargin: "0px 0px 0px 0px",
+                });
+
+
+                google.maps.event.addListener(cityCircle, 'mouseover', function(ev) {
+                    infowindow.setPosition(cityCircle.getCenter());
+                    infowindow.open(map);
+
+                });
+
+                google.maps.event.addListener(cityCircle, 'mouseout', function(ev) {
+
+                    infowindow.close();
+
+
+                });
+
+            }
+
+        });
+    </script>
+
+
+
+</body>
+
+</html>
