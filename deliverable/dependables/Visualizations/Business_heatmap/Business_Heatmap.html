@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        .gm-style-iw+div {
+            display: none;
+        } // disable close x in infobox
+    </style>
+    <title>Heatmap US</title>
+    <! load jquery.js library>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <! load d3.js library>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <! load google maps API key>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME&libraries=visualization"></script>
+
+    <! set page style>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script type="text/javascript">
+
+        // Create the map, specifying center location and zoom level
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 39.0119,
+                lng: -98.4842
+            },
+            showInfoWindow: true
+        });
+
+        // use d3.js to load json file 
+
+        d3.json("yelp_copy.json", function(json) {
+
+
+            // push all data location points in json to points array
+
+            var points = [];
+
+            for (var city in json) {
+
+                points.push({
+                    location: new google.maps.LatLng(json[city].lat, json[city].lng),
+                    weight: 1
+                });
+
+            }
+
+            // load points array onto heatmap layer and add to map
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: points,
+                map: map,
+                maxIntensity: 1.4
+            });
+
+            // define new colour gradient
+
+            var gradient = ['rgba(0,255,255,0)', 'rgba(0,255,255,1)', 'rgba(0,191,255,1)', 'rgba(0,127,255,1)',
+                'rgba(0,63,255,1)', 'rgba(0,0,223,1)', 'rgba(0,0,191,1)', 'rgba(0,0,159,1)',
+                'rgba(0,0,127,1)', 'rgba(63,0,91,1)', 'rgba(191,0,31,1)', 'rgba(255,0,0,1)'
+            ];
+
+
+            // apply new colour gradient to heatmap layer and define radius size
+
+            // heatmap.set('gradient', gradient);
+
+            heatmap.set('radius', 10);
+
+            var circles = new google.maps.Circles({
+                center: circles,
+                strokeColor: '#FF0000',
+                strokeOpacity: 5,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                radius: 6,
+                map: map
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

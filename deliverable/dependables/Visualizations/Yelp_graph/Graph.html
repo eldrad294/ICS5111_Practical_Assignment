@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Force Tutorial</title>
+</head>
+
+<body>
+
+    <h1>Force Tutorial</h1>
+    <canvas id="network" width="1500" height="1000"></canvas>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <script>
+        /* global d3 */
+
+
+        var graph = d3.json("Graph.json", function(graph) {
+
+            var canvas = d3.select("#network"),
+                width = canvas.attr("width"),
+                height = canvas.attr("height"),
+                r = 10;
+            ctx = canvas.node().getContext("2d"),
+                simulation = d3.forceSimulation()
+                .force("x", d3.forceX(width / 2))
+                .force("y", d3.forceY(height / 2))
+                .force("collide", d3.forceCollide(r + 5))
+                .force("charge", d3.forceManyBody().strength(-50))
+                .force("link", d3.forceLink()
+                    .id(function(d) {
+                        return d.id;
+                    }))
+                .on("tick", ticked);
+
+            //graph.nodes.forEach(function(d) {
+            //	d.x = Math.random()*width;
+            //	d.y = Math.random()*height;
+            //	});
+
+
+
+            simulation.nodes(graph.nodes);
+            simulation.force("link").links(graph.links);
+
+            canvas.call(d3.drag()
+                .container(canvas.node())
+                .subject(dragsubject)
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+            function ticked() {
+                ctx.clearRect(0, 0, width, height);
+
+                ctx.beginPath();
+                graph.links.forEach(drawLink);
+                ctx.strokeStyle = "#aaa";
+                ctx.stroke();
+
+
+                graph.nodes.forEach(drawNode);
+
+
+                if (closeNode) {
+
+                    drawCloseNode(closeNode)
+
+                }
+
+            }
+
+            var closeNode;
+
+            d3.select("canvas").on("mousemove", function(d) {
+                var p = d3.mouse(this);
+                closeNode = simulation.find(p[0], p[1]);
+                ticked();
+            })
+
+            function update() {
+                ctx.clearRect(0, 0, width, height);
+
+
+                graph.links.forEach(drawLink);
+
+                graph.nodes.forEach(drawNode);
+
+            }
+
+            function dragsubject() {
+                return simulation.find(d3.event.x, d3.event.y);
+            }
+
+            function drawNode(d) {
+                r = (d.type == "green") ? 10 : 5;
+                ctx.beginPath();
+                ctx.fillStyle = d.type;
+                ctx.moveTo(d.x, d.y);
+
+                ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                d.fx = null;
+                d.fy = null;
+                ctx.fill();
+                ctx.fillText(d.name, d.x + 7, d.y - 7);
+            }
+
+            function drawCloseNode(d) {
+                r = (d.type == "green") ? 15 : 8;
+                ctx.beginPath();
+                ctx.fillStyle = d.type;
+                ctx.strokeStyle = d.type;
+                ctx.moveTo(d.x, d.y);
+
+                ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                ctx.strokeRect(d.x + 9, d.y + 9, 50, 20);
+                ctx.fillText("RvCnt: " + d.rvCnt, d.x + 12, d.y + 22)
+            }
+
+            function drawLink(l) {
+                ctx.beginPath();
+                ctx.strokeStyle = l.type;
+                ctx.moveTo(l.source.x, l.source.y);
+                ctx.lineTo(l.target.x, l.target.y);
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                //ctx.appendText("!23");
+            }
+
+            function dragstarted() {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d3.event.subject.fx = d3.event.subject.fx;
+                d3.event.subject.fy = d3.event.subject.fy;
+            }
+
+            function dragged() {
+                if (d3.event.subject.fixed == null) {
+                    d3.event.subject.fx = d3.event.x;
+                    d3.event.subject.fy = d3.event.y;
+                }
+            }
+
+            function dragended() {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                if (d3.event.subject.fixed == null) {
+                    d3.event.subject.fx = null;
+                    d3.event.subject.fy = null;
+                }
+            }
+            ticked();
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <! disable close x in infobox>
+    <! define star rating levels>
+    <style>
+        
+        .gm-style-iw+div {
+            display: none;
+        }
+
+        .level-basic {
+            width: 60px;
+            height: 16px;
+            display: block;
+            background: url('http://smabela.x10.mx/graph/star-rating.png') 0 0 no-repeat;
+        }
+
+        .level-50 {
+            background-position: 0 0;
+        }
+
+        .level-40 {
+            background-position: -12px 0;
+        }
+
+        .level-30 {
+            background-position: -24px 0;
+        }
+
+        .level-20 {
+            background-position: -36px 0;
+        }
+
+        .level-10 {
+            background-position: -48px 0;
+        }
+
+        .level-0 {
+            background-position: -60px 0;
+        }
+
+        .level-5 {
+            background-position: -48px -16px;
+        }
+
+        .level-15 {
+            background-position: -36px -16px;
+        }
+
+        .level-25 {
+            background-position: -24px -16px;
+        }
+
+        .level-35 {
+            background-position: -12px -16px;
+        }
+
+        .level-45 {
+            background-position: 0 -16px;
+        }
+    </style>
+
+
+    <title>City Location</title>
+    <! load jquery.js library>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <! load d3.js library>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <! load google maps API key>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME"></script>
+
+    <! set page style>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+
+        #legend {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            padding: 10px;
+            margin: 10px;
+            border: 3px solid #000;
+        }
+
+        #legend h3 {
+            margin-top: 0;
+        }
+
+        #legend img {
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script type="text/javascript">
+
+        // Create the map, specifying center location and zoom level
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 35.8957,
+                lng: -120.7401
+            },
+            showInfoWindow: true
+        });
+
+        // use d3.js to load json file 
+        d3.json("Business_per_city_location.json", function(json) {
+
+            for (var city in json) {
+
+                // Add the circle for this city to the map.
+
+                var cityCircle = new google.maps.Circle({
+                    strokeColor: '#0000FF',
+                    strokeOpacity: 1,
+                    strokeWeight: 2,
+                    fillColor: '#72bcd4',
+                    fillOpacity: 0.8,
+                    map: map,
+                    center: {
+                        lat: json[city].lat,
+                        lng: json[city].lng
+                    },
+                    radius: Math.sqrt(json[city].business_cnt) * 76
+                });
+
+
+                // Define content of info window
+
+                var info2 = '<div align="center"><strong>City: </strong>' + json[city].city + '<p><strong>Business Count: </strong>' + json[city].business_cnt + '</p>Lat: ' + json[city].lat.toFixed(2) + ', Lng: ' + json[city].lng.toFixed(2) + '<p><strong>Review Count: </strong>' + json[city].review_cnt + '<br/></p>' + '<p><strong>Avg Star Rating: </strong>' + json[city].avg_stars.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json[city].avg_stars.toFixed(1) * 2)) * 5 + '"></span></div>';
+
+                createClickableCircle(map, cityCircle, info2);
+
+            }
+
+            // create info window and add listeners for mouse hover over and out
+
+            function createClickableCircle(map, cityCircle, info) {
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: info,
+                    closeBoxURL: "",
+                    closeBoxMargin: "0px 0px 0px 0px",
+                });
+
+
+                google.maps.event.addListener(cityCircle, 'mouseover', function(ev) {
+                    infowindow.setPosition(cityCircle.getCenter());
+                    infowindow.open(map);
+
+                });
+
+                google.maps.event.addListener(cityCircle, 'mouseout', function(ev) {
+
+                    infowindow.close();
+
+
+                });
+
+            }
+
+        });
+    </script>
+
+
+
+</body>
+
+</html>
