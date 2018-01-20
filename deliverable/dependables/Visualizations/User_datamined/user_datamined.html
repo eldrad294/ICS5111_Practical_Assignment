@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        .gm-style-iw+div {
+            display: none;
+        }
+
+        .level-basic {
+            width: 60px;
+            height: 16px;
+            display: block;
+            background: url('http://smabela.x10.mx/graph/star-rating.png') 0 0 no-repeat;
+        }
+
+        .level-50 {
+            background-position: 0 0;
+        }
+
+        .level-40 {
+            background-position: -12px 0;
+        }
+
+        .level-30 {
+            background-position: -24px 0;
+        }
+
+        .level-20 {
+            background-position: -36px 0;
+        }
+
+        .level-10 {
+            background-position: -48px 0;
+        }
+
+        .level-0 {
+            background-position: -60px 0;
+        }
+
+        .level-5 {
+            background-position: -48px -16px;
+        }
+
+        .level-15 {
+            background-position: -36px -16px;
+        }
+
+        .level-25 {
+            background-position: -24px -16px;
+        }
+
+        .level-35 {
+            background-position: -12px -16px;
+        }
+
+        .level-45 {
+            background-position: 0 -16px;
+        }
+
+       // define legend style
+       #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+    </style>
+
+    <title>User Data </title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWZc_2bNg7dCL-yaAYQXVKAeY-L21WgME"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+        #legend {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            padding: 10px;
+            margin: 10px;
+            border: 3px solid #000;
+        }
+
+        #legend h3 {
+            margin-top: 0;
+        }
+
+        #legend img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="legend"><h3>Legend</h3></div>
+
+    <script type="text/javascript">
+        var map;
+
+        // Create the map.
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: {
+                lat: 35.8957,
+                lng: -120.7401
+            },
+            showInfoWindow: true
+        });
+
+
+        // Define icons for legend - name and color square
+
+        var icons = {
+          1: {
+            name: 'Low income',
+            icon: 'http://placeholder.pics/svg/20x20/FFFFFF'
+          },
+          2: {
+            name: 'Medium income',
+            icon: 'http://placeholder.pics/svg/20x20/00ffff'
+          },
+          3: {
+            name: 'High income',
+            icon: 'http://placeholder.pics/svg/20x20/0000ff'
+          }
+        };
+
+
+        d3.json("user_datamined_top_500.json", function(json) {
+
+            var color_array = [];
+
+            for (var city in json.users) {
+
+                var colorRand = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+
+                if (!(json.users[city].user_id in color_array)) {
+                    color_array.push({
+                        id: json.users[city].user_id,
+                        color: colorRand
+                    });
+
+                    json.users[city].color = color_array.find(o => o.id === json.users[city].user_id).color;
+
+                }
+
+            }
+
+            for (var city in json.users) {
+
+
+                // Add the circle for this city to the map.
+                var cityCircle = new google.maps.Circle({
+                    strokeColor: '#000000',
+                    strokeOpacity: 1,
+                    strokeWeight: 1,
+                    fillColor: (json.users[city].financial_status == "Upper Class") ? "blue" : (json.users[city].financial_status == "Medium Class") ? "cyan" : "white",
+                    fillOpacity: 0.8,
+                    map: map,
+                    center: {
+                        lat: json.users[city].latitude,
+                        lng: json.users[city].longitude
+                    },
+                    radius: json.users[city].review_count/2
+                });
+
+                var info2 = '<div align="center"><strong>User: </strong>' + json.users[city].name + '<p><strong>City: </strong>' + json.users[city].city + '<p><strong>Personality: </strong>' + json.users[city].personality_trait_dubbed_by_reviewers + '</p>Lat: ' + json.users[city].latitude.toFixed(2) + ', Lng: ' + json.users[city].longitude.toFixed(2) + '<p><strong>Review Count: </strong>' + json.users[city].review_count + '<br/></p>' + '<p><strong>Review Rating: </strong>' + json.users[city].review_rating.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json.users[city].review_rating.toFixed(1) * 2)) * 5 + '"></span></div>';
+
+                createClickableCircle(map, cityCircle, info2);
+            }
+
+            function createClickableCircle(map, cityCircle, info) {
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: info,
+                    closeBoxURL: "",
+                    closeBoxMargin: "0px 0px 0px 0px",
+                });
+
+
+                google.maps.event.addListener(cityCircle, 'mouseover', function(ev) {
+                    infowindow.setPosition(cityCircle.getCenter());
+                    infowindow.open(map);
+
+                });
+
+                google.maps.event.addListener(cityCircle, 'mouseout', function(ev) {
+
+                    infowindow.close();
+
+
+                });
+
+            }
+
+          // define legend contents and add to map
+
+          var legend = document.getElementById('legend');
+                  for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+        });
+
+    </script>
+
+</body>
+
+</html>
