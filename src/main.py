@@ -17,7 +17,7 @@ from src.visual.csv_plots import csv_plots
 from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 #from src.textprocessing.SentimentAnalyzer_LDA import SentimentAnalyzer
 #from src.textprocessing.SentimentAnalyzer_VADER import SentimentAnalyzer
-sa = SentimentAnalyzer()
+#sa = SentimentAnalyzer()
 #sentence = 'Eh. Unimpressed. Poor waitresses look overworked- we had to ask the manager for refills, got my order wrong twice. Breakfast was a little bland (we got the healthy options & apparently that means no flavor) You have many other better and more delicious options nearby. Sorry morning squeeze, work more on your food and service instead of putting all your effort in a trendy vibe.'
 #sentence = 'Pizza here made my night... Good people and great pizza. They can do anything you ask with a great attitude!'
 #sentence = "Super good food! My friends and I ordered 2 lbs of shrimp, 2 lbs of crab legs, 2 Cajun fries, sweet potato fries, calamari, and fried catfish! We ate it allllll up. My only concern was that the crabs were a bit difficult to crack but then again I'm used to cracking the Alaskan crab legs. But other than the difficult cracking, the mix of all the seasonings was just a great fusion of flavors to really individualize their seafood from anything I've ever tried. And it was not primetime when we went so service was pretty fast! Hope they're on top of their game when it is busy!"
@@ -34,7 +34,7 @@ sa = SentimentAnalyzer()
 #sentence = "My expectations were low-I expected good, not great food, reasonably priced.  I made a point of asking for and ordering gluten free foods.  Well the lentil soup was virtually flavorless.  The nachos were nuked in a microwave, half the chips were the crumbs from the bottom of the bag, and the salsa was not spicy but tasted more like marinara.   the \"gluten free\" main course arrived with wheat rather than rice noodles.  I will never return."
 #pred = sa.predict(sentence)
 #print(pred)
-print(sa.test_set())
+#print(sa.test_set())
 #
 # ---------------------------------------
 #
@@ -53,4 +53,4 @@ state = 'NV'
 #
 #c.get_business_user_graph(city=city,business_category=business_category)
 #
-c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)
+c.data_mine_top_N_users(N=500,top_trending_word_count=20,pos=True)

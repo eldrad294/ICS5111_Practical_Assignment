@@ -2,6 +2,7 @@ import src.constants.sql_consts as sc
 from src.db.database_handler import db
 from src.textprocessing.SentimentAnalyzer_LogisticRegression import SentimentAnalyzer
 from src.utils.json_formatter import json_formatter
+from src.utils.csv_formatter import csv_formatter
 from src.utils.word_bucket import Word_Bucket
 #
 class Core():
@@ -17,6 +18,7 @@ class Core():
         self.db_obj = db('127.0.0.1', 'yelp_db', 'root', '1234')
         self.sa = SentimentAnalyzer()
         self.jf = json_formatter()
+        self.cv = csv_formatter()
         self.wb = Word_Bucket()
     #
     def get_suggested_businesses(self, business_category, location, time, N):
@@ -248,6 +250,7 @@ class Core():
         # Pass lists to be converted into JSON files
         self.jf.user_data_mined_to_json(user_datamined_data, top_N_user_words, 'user_datamined.json')
         self.jf.user_history_to_json(user_history, 'user_history.json')
-        self.jf.generate_word_graph_template(top_N_user_words, 'user_word_cloud.json')
         #
         print('JSON files successfully created!')
+        print('Commencing write to csv (word cloud)..')
+        self.cv.generate_word_graph_template(top_N_user_words, 'user_word_cloud.csv')
