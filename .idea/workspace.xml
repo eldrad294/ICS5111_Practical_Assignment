@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/textprocessing/Text_Cleanup.py" line="81" mnemonic="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8987039-6142-4397-af14-4255e419382a" name="Default" comment="" />
+    <list default="true" id="b8987039-6142-4397-af14-4255e419382a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deliverable/artifact.ipynb" afterPath="$PROJECT_DIR$/deliverable/artifact.ipynb" />
+    </list>
     <ignored path="ICS5111_Practical_Assignment.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,21 +49,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sql_consts.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sql_consts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/constants/sql_consts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="179" column="85" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
+            <state relative-caret-position="541">
+              <caret line="179" column="85" selection-start-line="171" selection-start-column="45" selection-end-line="179" selection-end-column="85" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="csv_formatter.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="csv_formatter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/csv_formatter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+            <state relative-caret-position="179">
+              <caret line="12" column="14" selection-start-line="9" selection-start-column="0" selection-end-line="37" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -508,7 +510,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23802084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -906,14 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/csv_formatter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/db/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
@@ -926,8 +920,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/constants/sql_consts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="179" column="85" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
+        <state relative-caret-position="541">
+          <caret line="179" column="85" selection-start-line="171" selection-start-column="45" selection-end-line="179" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/csv_formatter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="12" column="14" selection-start-line="9" selection-start-column="0" selection-end-line="37" selection-end-column="25" />
           <folding />
         </state>
       </provider>
