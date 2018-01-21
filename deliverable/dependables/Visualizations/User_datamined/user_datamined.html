@@ -119,12 +119,12 @@
     <script type="text/javascript">
         var map;
 
-         // Create the map.
-         map = new google.maps.Map(document.getElementById('map'), {
+        // Create the map.
+        map = new google.maps.Map(document.getElementById('map'), {
             zoom: 13,
             center: {
-                lat: 36.1362,
-                lng: -115.1824
+                lat: 36.1282,
+                lng: -115.1954
             },
             showInfoWindow: true
         });
@@ -134,19 +134,18 @@
 
         var icons = {
           1: {
-            name: 'Low income',
-            icon: 'http://placeholder.pics/svg/20x20/FFFFFF'
+            name: 'Usefool',
+            icon: 'http://placeholder.pics/svg/20x20/FFFF00'
           },
           2: {
-            name: 'Medium income',
+            name: 'Cool',
             icon: 'http://placeholder.pics/svg/20x20/00ffff'
           },
           3: {
-            name: 'High income',
-            icon: 'http://placeholder.pics/svg/20x20/0000ff'
+            name: 'Funny',
+            icon: 'http://placeholder.pics/svg/20x20/FFA500'
           }
         };
-
 
         d3.json("user_datamined_top_500.json", function(json) {
 
@@ -176,7 +175,7 @@
                     strokeColor: '#000000',
                     strokeOpacity: 1,
                     strokeWeight: 1,
-                    fillColor: (json.users[city].financial_status == "Upper Class") ? "blue" : (json.users[city].financial_status == "Medium Class") ? "cyan" : "white",
+                    fillColor: (json.users[city].personality_trait_dubbed_by_reviewers == "Funny") ? "orange" : (json.users[city].personality_trait_dubbed_by_reviewers == "Cool") ? "cyan" : "yellow",
                     fillOpacity: 0.8,
                     map: map,
                     center: {
@@ -186,7 +185,7 @@
                     radius: json.users[city].review_count/2
                 });
 
-                var info2 = '<div align="center"><strong>User: </strong>' + json.users[city].name + '<p><strong>City: </strong>' + json.users[city].city + '<p><strong>Personality: </strong>' + json.users[city].personality_trait_dubbed_by_reviewers + '</p>Lat: ' + json.users[city].latitude.toFixed(2) + ', Lng: ' + json.users[city].longitude.toFixed(2) + '<p><strong>Review Count: </strong>' + json.users[city].review_count + '<br/></p>' + '<p><strong>Review Rating: </strong>' + json.users[city].review_rating.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json.users[city].review_rating.toFixed(1) * 2)) * 5 + '"></span></div>';
+                var info2 = '<div align="center"><strong>User: </strong>' + json.users[city].name + '<p><strong>City: </strong>' + json.users[city].city + '<p><strong>Financial Status: </strong>' + json.users[city].financial_status + '</p>Lat: ' + json.users[city].latitude.toFixed(2) + ', Lng: ' + json.users[city].longitude.toFixed(2) + '<p><strong>Review Count: </strong>' + json.users[city].review_count + '<br/></p>' + '<p><strong>Review Rating: </strong>' + json.users[city].review_rating.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json.users[city].review_rating.toFixed(1) * 2)) * 5 + '"></span></div>';
 
                 createClickableCircle(map, cityCircle, info2);
             }
