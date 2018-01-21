@@ -243,6 +243,7 @@ class Core():
         self.db_obj.close(conn)
         #
         print('Data Mining Task Complete, commencing JSON serializing')
+        print(top_N_user_words)
         #
         # Pass lists to be converted into JSON files
         self.jf.user_data_mined_to_json(user_datamined_data, top_N_user_words, 'user_datamined.json')

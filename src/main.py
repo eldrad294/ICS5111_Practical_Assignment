@@ -43,7 +43,7 @@ c = Core()
 city = 'Woodmere'
 state = 'NV'
 # business_category = 'Food'
-c.populate_table_business_user_sentiment(state=state)
+#c.populate_table_business_user_sentiment(state=state)
 #
 # time = ['Sunday','10:00']
 # coordinates = [43.8409,-79.3996]
@@ -53,4 +53,4 @@ c.populate_table_business_user_sentiment(state=state)
 #
 #c.get_business_user_graph(city=city,business_category=business_category)
 #
-# c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)
+c.data_mine_top_N_users(N=10,top_trending_word_count=20,pos=True)

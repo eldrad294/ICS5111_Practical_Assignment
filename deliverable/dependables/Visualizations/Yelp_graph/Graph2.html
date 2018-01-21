@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>D3 Force Reviews Browser</title>
+
+<! css styles for reviews info table>
+    <style>
+        table {
+            border-collapse: separate;
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        td {
+            border: 1px solid black;
+            vertical-align: top;
+            padding: 4px;
+            font-size: 9;
+            overflow: hidden;
+        }
+
+        table.ex1 {
+            table-layout: auto;
+        }
+
+        table.ex2 {
+            table-layout: fixed;
+        }
+
+        div#info {
+
+            width: 100%;
+            margin: 5px auto;
+            padding: 4px;
+            height: 150px;
+            max-height: 150px;
+            border: 1px solid #000;
+            overflow: hidden;
+            display: block;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>D3 Force Reviews Browser</h1>
+
+    <div id="info">
+
+     <! set reviews info table>
+
+        <table class="ex2">
+            <tr>
+                <td width=50>
+                    <div style="height:20px; overflow:hidden">User: </div>
+                </td>
+                <td width="75%"></td>
+                <tr>
+                    <td>
+                        <div style="height:180px; overflow:hidden">Review: </div>
+                    </td>
+                    <td></td>
+                </tr>
+        </table>
+
+    </div>
+
+    <canvas id="network" width="1500" height="1000"></canvas>
+
+    <! load d3js library>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <! load jquery library>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+    <script>
+        
+        // import graph.json using d3 consisting of 
+
+        // array of nodes composed of businesses (type green) and users (type grey)
+
+        // array of links composed of reviews (type based on sentiment: blue = good, yellow = neutral, red = bad)
+
+
+        var graph = d3.json("graph.json", function(graph) {
+
+            // initialise forceSimulation onto canvas
+
+            var store;
+
+            var current = graph.nodes[0].id;
+
+            store = $.extend(true, {}, graph);
+
+            var canvas = d3.select("#network"),
+                width = canvas.attr("width"),
+                height = canvas.attr("height"),
+                r = 10;
+            ctx = canvas.node().getContext("2d"),
+                simulation = d3.forceSimulation()
+                .force("x", d3.forceX(width / 2))
+                .force("y", d3.forceY(height / 2))
+                .force("collide", d3.forceCollide(r + 30))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("link", d3.forceLink()
+                    .id(function(d) {
+                        return d.id;
+                    }))
+                .on("tick", ticked);
+
+            // add nodes and links to simulation
+
+            simulation.nodes(graph.nodes);
+            simulation.force("link").links(graph.links);
+
+
+            // enable dragging of nodes using mouse
+
+            canvas
+                .on("click", function(d) {
+                    var p = d3.mouse(this);
+                    var clickedNode = simulation.find(p[0], p[1]);
+                    clicked(clickedNode);
+                })
+                .call(d3.drag()
+                    .container(canvas.node())
+                    .subject(dragsubject)
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", drrvCntnded));
+
+
+            // function to update nodes on ticked
+
+            function ticked() {
+
+                ctx.clearRect(0, 0, width, height);
+
+                ctx.beginPath();
+                graph.links.forEach(drawLink);
+                ctx.strokeStyle = "#aaa";
+                ctx.stroke();
+
+                graph.nodes.forEach(drawNode);
+
+
+                if (closeNode) {
+
+                    drawCloseNode(closeNode);
+
+                }
+
+            }
+
+            // function to update closest node to cursor
+
+            var closeNode;
+
+            d3.select("canvas").on("mousemove", function(d) {
+                var p = d3.mouse(this);
+                closeNode = simulation.find(p[0], p[1]);
+                ticked();
+            });
+
+
+            // function to update nodes and links
+
+            function update() {
+                ctx.clearRect(0, 0, width, height);
+
+                graph.links.forEach(drawLink);
+
+                graph.nodes.forEach(drawNode);
+
+            }
+
+
+            // function to get current clicked node
+
+            function clicked(clickedNode) {
+
+                current = clickedNode.id;
+
+            }
+
+            // function to drag a node using mouse
+
+            function dragsubject() {
+                return simulation.find(d3.event.x, d3.event.y);
+            }
+
+
+            // function to draw all nodes with colour depending on type
+
+            function drawNode(d) {
+
+                if (d.id == current) {
+
+                    r = Math.sqrt(d.rvCnt) + 3; // d.type=="green") ? 10 : 5;
+                    ctx.beginPath();
+                    ctx.fillStyle = d.type;
+                    ctx.moveTo(d.x, d.y);
+
+                    ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                    d.fx = null;
+                    d.fy = null;
+                    ctx.fill();
+                    ctx.fillText(d.name, d.x + 7, d.y - 7);
+
+                } else {
+
+                    r = Math.sqrt(d.rvCnt) / 10;;
+                    ctx.beginPath();
+                    ctx.strokeStyle = d.type == "green" ? "green" : "grey";
+                    ctx.fillStyle = d.type == "green" ? "green" : "grey";
+                    ctx.moveTo(d.x, d.y);
+
+                    ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                    d.fx = null;
+                    d.fy = null;
+                    ctx.fill();
+                    ctx.stroke();
+
+                }
+
+            }
+
+
+            // function to draw second node with colour depending on type
+
+            function drawNode2(d) {
+
+                r = Math.sqrt(d.rvCnt);
+                ctx.beginPath();
+                ctx.fillStyle = d.type;
+                ctx.strokeStyle = d.type;
+                ctx.moveTo(d.x, d.y);
+
+                ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                d.fx = null;
+                d.fy = null;
+                ctx.fill();
+                ctx.fillText(d.name, d.x + Math.sqrt(d.rvCnt), d.y - Math.sqrt(d.rvCnt));
+
+            }
+
+
+            // function to draw closest nodes with colour depending on type and get review text to info window
+
+            function drawCloseNode(d) {
+                r = (d.type == "green") ? 15 : 8;
+                ctx.beginPath();
+
+                //ctx.fillStyle = d.type;
+                ctx.strokeStyle = d.type;
+                ctx.moveTo(d.x, d.y);
+
+                ctx.arc(d.x, d.y, r, 0, 2 * Math.PI);
+                ctx.strokeRect(d.x + 9, d.y + 9, (d.name.length*6+60), 45);
+                ctx.fillStyle = "white";
+                ctx.fillRect(d.x + 9, d.y + 9, (d.name.length*6+60), 45);
+                ctx.fillStyle = d.type;
+                ctx.fillText("Name: " + d.name, d.x + 20, d.y + 22);
+                ctx.fillText(" RevCt: " + d.rvCnt, d.x + 20, d.y + 42)
+
+                var div2 = d3.select("#info");
+
+                $('#info').html("<table><tr><td width=50 height=20>User: </td><td width=1500>" + d.name + "</td><tr><td width=50 height=180>Review: </td><td width=1500 >" + graph.links.filter(function(l) {
+                    return (l.target.id == d.id)
+                })[0].rv + "</td></tr></table>");
+
+            }
+
+
+            // function to draw link coloured according to type (sentiment)
+
+            function drawLink(l) {
+
+                ctx.beginPath();
+
+                if (l.source.id == current) {
+
+                    ctx.strokeStyle = l.type;
+                    ctx.lineWidth = 3;
+                    ctx.moveTo(l.source.x, l.source.y);
+                    ctx.lineTo(l.target.x, l.target.y);
+                    ctx.stroke();
+
+                    var targetNode = graph.nodes.filter(function(d) {
+                        return (d.id == l.target.id)
+                    });
+
+                    drawNode2(targetNode[0]);
+
+                } else if (l.target.id == current) {
+
+                    ctx.strokeStyle = l.type;
+                    ctx.lineWidth = 3;
+                    ctx.moveTo(l.source.x, l.source.y);
+                    ctx.lineTo(l.target.x, l.target.y);
+                    ctx.stroke();
+
+                    var sourceNode = graph.nodes.filter(function(d) {
+                        return (d.id == l.source.id)
+                    });
+
+                    drawNode2(sourceNode[0]);
+
+                } else {
+
+                    ctx.strokeStyle = "grey";
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(l.source.x, l.source.y);
+                    ctx.lineTo(l.target.x, l.target.y);
+                    ctx.stroke();
+
+                    }
+
+
+            }
+
+
+            // function to start dragging a node
+
+            function dragstarted() {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d3.event.subject.fx = d3.event.subject.fx;
+                d3.event.subject.fy = d3.event.subject.fy;
+            }
+
+
+            // function to update dragging of a node
+
+            function dragged() {
+                if (d3.event.subject.fixed == null) {
+                    d3.event.subject.fx = d3.event.x;
+                    d3.event.subject.fy = d3.event.y;
+                }
+            }
+
+
+            // function to end dragging of a node
+
+            function drrvCntnded() {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                if (d3.event.subject.fixed == null) {
+                    d3.event.subject.fx = null;
+                    d3.event.subject.fy = null;
+                }
+            }
+
+
+            ticked();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
