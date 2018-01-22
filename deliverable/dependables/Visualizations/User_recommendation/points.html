@@ -139,6 +139,18 @@
           4: {
             name: '300 +',
             icon: 'http://placeholder.pics/svg/20x20/00008b'
+          },
+          5: {
+            name: '',
+            icon: 'http://placeholder.pics/svg/20x20/FFFFFF-FFFFFF/FFFFFF-FFFFFF'
+          },
+          6: {
+            name: 'Open',
+            icon: 'http://placeholder.pics/svg/30x10/00FF00-00FF00/FFFFFF-FFFFFF'
+          },
+          7: {
+            name: 'Closed',
+            icon: 'http://placeholder.pics/svg/30x10/FF0000-FF0000/FFFFFF-FFFFFF'
           }
         };
 
@@ -154,14 +166,12 @@
 
                 json.businesses[city].col = json.businesses[city].reviewcount > 300 ? "darkblue" : (json.businesses[city].reviewcount > 200 ? "blue" : (json.businesses[city].reviewcount > 100 ? "lightblue" : "white"));
 
-                if (true) {
-
                     // Add the circle for this city to the map.
 
                     var cityCircle = new google.maps.Circle({
-                        strokeColor: ((json.businesses[city].status == "Closed") ? "#FF0000" : "#0000FF"),
+                        strokeColor: ((json.businesses[city].status == "Closed") ? "#FF0000" : "#00FF00"),
                         strokeOpacity: 1,
-                        strokeWeight: 2,
+                        strokeWeight: 3,
                         fillColor: json.businesses[city].col,
                         fillOpacity: 0.8,
                         map: map,
@@ -169,7 +179,7 @@
                             lat: json.businesses[city].latitude,
                             lng: json.businesses[city].longitude
                         },
-                        radius: 50
+                        radius: 70
 
                     });
 
@@ -178,8 +188,6 @@
                     var info2 = '<div align="center"><strong>Business: </strong>' + json.businesses[city].name + '<p><strong>Neighbourhood: </strong>' + json.businesses[city].neighborhood + '<p><strong>Distance: </strong>' + json.businesses[city].distance + '</p>Lat: ' + json.businesses[city].latitude.toFixed(2) + ', Lng: ' + json.businesses[city].longitude.toFixed(2) + '<p><strong>Review Count: </strong>' + json.businesses[city].reviewcount + '<br/></p>' + '<p><strong>Avg Star Rating: </strong>' + json.businesses[city].stars.toFixed(1) + '<span class="level-basic level-' + (Math.floor(json.businesses[city].stars.toFixed(1) * 2)) * 5 + '"></span></div>';
 
                     createClickableCircle(map, cityCircle, info2);
-
-                }
 
             }
 

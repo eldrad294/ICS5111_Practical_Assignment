@@ -42,12 +42,14 @@ from src.db.core import Core
 c = Core()
 city = 'Woodmere'
 state = 'NV'
-# business_category = 'Food'
+business_category = 'Entertainment'
+coordinates = [36.1116169,-115.1717475]
+time=['Saturday','23:00']
 #c.populate_table_business_user_sentiment(state=state)
 #
 # time = ['Sunday','10:00']
 # coordinates = [43.8409,-79.3996]
-# c.get_suggested_businesses('Food',coordinates,time,100)
+#c.get_suggested_businesses(business_category,coordinates,time,100)
 #
 # c.get_business_cluster('state')
 #
